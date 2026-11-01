@@ -1,0 +1,14 @@
+{
+  "name": "@agentcoin/x402-escrow-hint",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Seller-side helper: attaches an 'agentcoin-escrow' extension to the seller's own x402 402 PaymentRequired body. Base Sepolia testnet only. Zero dependencies. Not published.",
+  "license": "MIT",
+  "main": "index.mjs",
+  "types": "index.d.ts",
+  "exports": { ".": { "types": "./index.d.ts", "default": "./index.mjs" } },
+  "files": ["index.mjs", "index.d.ts", "README.md"],
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test test/" }
+}

@@ -1,0 +1,15 @@
+[project]
+name = "openai-agents-agentcoin"
+version = "0.1.0"
+description = "AgentCoin tools for the OpenAI Agents SDK (Python). Base Sepolia testnet only."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["agentcoin-core==0.1.0", "openai-agents>=0.2"]
+classifiers = ["Private :: Do Not Upload"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentcoin_openai_agents"]

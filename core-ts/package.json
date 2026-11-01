@@ -1,0 +1,14 @@
+{
+  "name": "@agentcoin/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AgentCoin router client: find, route, order, pay (x402 exact or escrow), verify. Base Sepolia testnet only.",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
+  "files": ["dist", "README.md"],
+  "engines": { "node": ">=20" },
+  "dependencies": {"viem":"^2.57.11","canonicalize":"^4.0.0"}
+}

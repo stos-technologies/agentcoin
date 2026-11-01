@@ -1,0 +1,91 @@
+# AgentCoin client libraries and framework plugins
+
+Client side of AgentCoin: a router client, framework tool adapters, an x402 fetch wrapper, an MCP server, and a seller-side x402 escrow-hint helper. The router, scoring, index, evaluator and server are not in this repository.
+
+| field | value |
+|---|---|
+| status | testnet only, unpublished (no npm or PyPI release) |
+| network | Base Sepolia, `eip155:84532` |
+| token | Circle test USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` |
+| escrow contract | `JobEscrow` `0x4EaF6d09F8C22980Bb16E719779ACe73A7b1CB3D` |
+| service URL | `AGENTCOIN_URL`, default `DEFAULT_AGENTCOIN_URL` in `core-ts/src/constants.ts` and `python/agentcoin-core/src/agentcoin_core/constants.py` |
+| mainnet | refused; `allowMainnet` / `allow_mainnet` is off by default and unsupported |
+| value | test USDC only; no real value |
+| license | MIT |
+
+Contract addresses: `deployments/base-sepolia.json` (public subset: addresses and parameters).
+
+## Packages
+
+Every plugin wraps one core client and exposes the same seven tools: `find_service`, `route_task`, `place_order`, `get_order`, `claim_listing`, `verify`, `refund`. Tool definitions: `core-ts/src/tools.ts`; `npm run gen:tool-specs` writes the Python copy `python/agentcoin-core/src/agentcoin_core/tool_specs.json`.
+
+| package | path | kind |
+|---|---|---|
+| `@agentcoin/core` | `core-ts/` | TS router client: find, route, order, pay (x402 exact or escrow), verify |
+| `agentcoin-core` | `python/agentcoin-core/` | Python router client, same surface; includes `agentcoin_core.escrow_hint` |
+| `@agentcoin/mcp` | `mcp/` | stdio MCP server (Claude Desktop, Claude Code, Cursor); hosted endpoint snippets in `mcp/snippets/` |
+| `@agentcoin/vercel-ai` | `vercel-ai/` | Vercel AI SDK tools |
+| `langchain-agentcoin` | `python/langchain-agentcoin/` | LangChain / LangGraph (Python) tools |
+| `@agentcoin/langchain` | `langchain-js/` | LangChain.js / LangGraph.js tools |
+| `openai-agents-agentcoin` | `python/openai-agents-agentcoin/` | OpenAI Agents SDK (Python) tools |
+| `@agentcoin/openai-agents` | `openai-agents-js/` | OpenAI Agents SDK (TS) tools |
+| `@agentcoin/x402-fetch` | `x402-fetch/` | x402 fetch wrapper routed through AgentCoin |
+| `crewai-agentcoin` | `python/crewai-agentcoin/` | CrewAI tools |
+| `@agentcoin/agentkit` | `agentkit/` | Coinbase AgentKit action provider |
+| `@agentcoin/x402-escrow-hint` | `x402-escrow-hint/` | seller-side: adds an `agentcoin-escrow` extension to the seller's own 402 body; zero dependencies |
+
+## Install (local path; nothing is published)
+
+```
+git clone <this repo> agentcoin-public && cd agentcoin-public
+npm install && npm run build                       # all TS workspaces
+npm install /path/to/agentcoin-public/vercel-ai    # into another project; same for the other TS packages
+
+cd python && uv venv .venv
+VIRTUAL_ENV=.venv uv pip install -e agentcoin-core -e 'langchain-agentcoin[test]' -e crewai-agentcoin -e openai-agents-agentcoin
+```
+
+Requirements: Node >= 22.18 to build and run the tests (tests import `.ts` sources directly); built packages declare Node >= 20. Python >= 3.10, `uv`.
+
+## Tests
+
+```
+npm install && npm test                                                     # TS + x402-escrow-hint, mocked router
+cd python && VIRTUAL_ENV=.venv uv pip install pytest && .venv/bin/pytest     # Python, mocked router
+```
+
+`langchain-agentcoin[test]` adds `langgraph`, used by one LangGraph ToolNode test.
+
+Unit tests use a mocked router and mocked chain clients: no network, no keys. When `python/.venv` exists, the escrow-hint test also checks that the JS and Python helpers emit identical JSON.
+
+## Live examples (opt-in)
+
+`examples/` holds one find -> order -> verify script per plugin against the AgentCoin-operated notary listing (`svc_4c3c948ad42dc519`, 0.01 test USDC), with `allowedServiceIds` pinned to it. Without `AGENTCOIN_PRIVATE_KEY`, or with `AGENTCOIN_DRY_RUN=1`, an example stops after the read-only find step.
+
+```
+examples/run-live.sh <file containing a Base Sepolia test key> examples/<name>.ts|.py
+```
+
+Results (order ids, tx hashes, verdicts, signature checks; no keys) are written to `out/` (git-ignored).
+
+## Environment
+
+| variable | default |
+|---|---|
+| `AGENTCOIN_URL` | `https://agentcoin.143-244-167-51.sslip.io` (legacy alias `AGENTCOIN_BASE_URL`) |
+| `AGENTCOIN_PRIVATE_KEY` | unset (read-only tools only) |
+| `AGENTCOIN_DRY_RUN` | unset |
+
+Per-package variables: each package README.
+
+## Service URL
+
+One constant per language: `DEFAULT_AGENTCOIN_URL` (TS `core-ts/src/constants.ts`, Python `agentcoin_core/constants.py`). `agentcoinUrl()` / `agentcoin_url()` return `AGENTCOIN_URL`, else `AGENTCOIN_BASE_URL`, else the default. Clients, plugins, examples and the escrow hint read it. `x402-escrow-hint` is zero-dependency and keeps its own `DEFAULT_AGENTCOIN_URL`; a test asserts it equals the core value. The hosted MCP entries in `mcp/snippets/` are static config and spell out the URL.
+
+## License
+
+MIT (`LICENSE`), Copyright (c) 2026 AgentCoin.
+
+## Status
+
+Testnet only: Base Sepolia (`eip155:84532`), Circle test USDC, no real value. Mainnet chain ids are refused.

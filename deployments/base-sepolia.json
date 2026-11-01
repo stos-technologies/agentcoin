@@ -1,0 +1,37 @@
+{
+  "network": "Base Sepolia",
+  "chainId": 84532,
+  "usdc": {
+    "address": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    "kind": "Circle official test USDC (FiatToken proxy), decimals 6"
+  },
+  "params": {
+    "minStake": 2000000,
+    "evalWindow": 3600,
+    "challengeWindow": 600,
+    "arbitrationFee": 500000
+  },
+  "contracts": {
+    "MockArbitrator": {
+      "address": "0x3C4587eD99B1969581cA4f041FD9535a0D269736"
+    },
+    "EvaluatorRegistry": {
+      "address": "0x30576DE005df028D1947C56dEcc85a2a5612036a"
+    },
+    "JobEscrow": {
+      "address": "0x4EaF6d09F8C22980Bb16E719779ACe73A7b1CB3D"
+    },
+    "ERC8183EvaluatorAdapter": {
+      "address": "0x27803F8DBDAd0D6B0E719d2AB2eB7A31b5c53509"
+    },
+    "EscrowDepositRouteFactory": {
+      "address": "0x32174eFD01e600E621Cf3f0D19Ff694483B19b95"
+    },
+    "RecoveryVault": {
+      "address": "0xac3bFF013bABD1F8B671b4838Cd54aA98bd3B460"
+    },
+    "MockERC8183Kernel": {
+      "address": "0x79c40413556ab795f9d64d745b7c591e4a888e64"
+    }
+  }
+}

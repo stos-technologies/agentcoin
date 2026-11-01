@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "agentcoin": { "url": "https://agentcoin.143-244-167-51.sslip.io/mcp" },
+    "agentcoin-wallet": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/agentcoin-public/mcp/dist/bin.js"],
+      "env": { "AGENTCOIN_PRIVATE_KEY": "0x<testnet key>", "AGENTCOIN_MAX_PAYMENT": "50000" }
+    }
+  }
+}

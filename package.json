@@ -1,0 +1,27 @@
+{
+  "name": "agentcoin-integrations",
+  "private": true,
+  "type": "module",
+  "description": "AgentCoin framework plugins (local, unpublished, Base Sepolia testnet only).",
+  "workspaces": [
+    "core-ts",
+    "agentkit",
+    "x402-fetch",
+    "langchain-js",
+    "openai-agents-js",
+    "vercel-ai",
+    "mcp"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -b core-ts agentkit x402-fetch langchain-js openai-agents-js vercel-ai mcp",
+    "test": "node --test core-ts/test/*.test.ts agentkit/test/*.test.ts x402-fetch/test/*.test.ts langchain-js/test/*.test.ts openai-agents-js/test/*.test.ts vercel-ai/test/*.test.ts mcp/test/*.test.ts x402-escrow-hint/test/*.test.mjs",
+    "gen:tool-specs": "node scripts/gen-tool-specs.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@types/node": "^22.0.0"
+  }
+}
