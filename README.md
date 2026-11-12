@@ -72,7 +72,7 @@ Results (order ids, tx hashes, verdicts, signature checks; no keys) are written 
 
 | variable | default |
 |---|---|
-| `AGENTCOIN_URL` | `https://agentcoin.143-244-167-51.sslip.io` (legacy alias `AGENTCOIN_BASE_URL`) |
+| `AGENTCOIN_URL` | `https://agentcoinhq.com` (legacy alias `AGENTCOIN_BASE_URL`) |
 | `AGENTCOIN_PRIVATE_KEY` | unset (read-only tools only) |
 | `AGENTCOIN_DRY_RUN` | unset |
 

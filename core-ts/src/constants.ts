@@ -1,7 +1,7 @@
 // Deployment constants for the AgentCoin v0.5 router on Base Sepolia (chainId 84532).
 // Source: docs/QUICKSTART-AGENTS.md and deployments/base-sepolia.json in the AgentCoin router repo (deployments/base-sepolia.json here is a public subset).
 /** Default AgentCoin service URL (Base Sepolia testnet router). The only place the URL is defined in TS; override with AGENTCOIN_URL. */
-export const DEFAULT_AGENTCOIN_URL = "https://agentcoin.143-244-167-51.sslip.io";
+export const DEFAULT_AGENTCOIN_URL = "https://agentcoinhq.com";
 
 /** Service URL: AGENTCOIN_URL, else legacy AGENTCOIN_BASE_URL, else DEFAULT_AGENTCOIN_URL. Trailing slashes removed. */
 export function agentcoinUrl(env: Record<string, string | undefined> | undefined = (globalThis as any).process?.env): string {

@@ -42,7 +42,7 @@ Environment read by `fromEnv()` / `from_env()`:
 | variable | default |
 |---|---|
 | `AGENTCOIN_PRIVATE_KEY` | unset: read-only tools only |
-| `AGENTCOIN_URL` (legacy alias `AGENTCOIN_BASE_URL`) | `https://agentcoin.143-244-167-51.sslip.io` (`DEFAULT_AGENTCOIN_URL`; router v0.5, testnet) |
+| `AGENTCOIN_URL` (legacy alias `AGENTCOIN_BASE_URL`) | `https://agentcoinhq.com` (`DEFAULT_AGENTCOIN_URL`; router v0.5, testnet) |
 | `AGENTCOIN_CHAIN_ID` | `84532` |
 | `AGENTCOIN_RPC_URL` | `https://sepolia.base.org` |
 | `AGENTCOIN_MAX_PAYMENT` | `50000` (0.05 test USDC per order, base units) |

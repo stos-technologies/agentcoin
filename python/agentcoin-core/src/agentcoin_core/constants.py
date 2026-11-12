@@ -4,7 +4,7 @@ import os as _os
 from typing import Mapping as _Mapping, Optional as _Optional
 
 #: Default AgentCoin service URL (Base Sepolia testnet router). The only place the URL is defined in Python; override with AGENTCOIN_URL.
-DEFAULT_AGENTCOIN_URL = "https://agentcoin.143-244-167-51.sslip.io"
+DEFAULT_AGENTCOIN_URL = "https://agentcoinhq.com"
 
 
 def agentcoin_url(env: _Optional[_Mapping[str, str]] = None) -> str:
