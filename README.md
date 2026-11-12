@@ -15,6 +15,7 @@ AgentCoin is a trust layer for AI-agent work: USDC escrow released on a staked e
 | license | MIT |
 | copyright | Copyright (c) 2026 STOS Technologies LLC |
 | publisher | STOS Technologies LLC |
+| source | https://github.com/stos-technologies/agentcoin |
 
 Contract addresses: `deployments/base-sepolia.json` (public subset: addresses and parameters).
 
@@ -46,7 +47,7 @@ Every plugin wraps one core client and exposes the same seven tools: `find_servi
 Local path install; nothing is published to npm or PyPI.
 
 ```
-git clone <this repo> agentcoin && cd agentcoin
+git clone https://github.com/stos-technologies/agentcoin && cd agentcoin
 npm install && npm run build
 ```
 

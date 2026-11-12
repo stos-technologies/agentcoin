@@ -1,12 +1,14 @@
-# Repository metadata (proposed)
+# Repository metadata
 
-These are the proposed GitHub fields for this public client-libraries repository. This file is documentation only; it does not create a remote or a GitHub repository.
+The public client-libraries repository is https://github.com/stos-technologies/agentcoin
 
 | field | value |
 |---|---|
-| proposed name | `agentcoin` |
+| name | `agentcoin` |
+| owner | `stos-technologies` |
+| url | https://github.com/stos-technologies/agentcoin |
 | one-line description | Client libraries and framework plugins for AgentCoin (Base Sepolia testnet) |
-| visibility | public (not created yet) |
+| visibility | public |
 | license | MIT |
 | copyright | Copyright (c) 2026 STOS Technologies LLC |
 | publisher | STOS Technologies LLC |

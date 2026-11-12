@@ -66,3 +66,7 @@ Runs find -> order -> verify against the AgentCoin-operated notary listing (`svc
 ## License
 
 MIT, Copyright (c) 2026 STOS Technologies LLC.
+
+## Source
+
+https://github.com/stos-technologies/agentcoin

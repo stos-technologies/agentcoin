@@ -21,3 +21,7 @@ Python equivalent: `agentcoin_core.escrow_hint` in `python/agentcoin-core`.
 ## License
 
 MIT, Copyright (c) 2026 STOS Technologies LLC.
+
+## Source
+
+https://github.com/stos-technologies/agentcoin
