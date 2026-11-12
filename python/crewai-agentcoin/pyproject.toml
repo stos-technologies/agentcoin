@@ -8,9 +8,22 @@ authors = [{ name = "STOS Technologies LLC" }]
 dependencies = ["agentcoin-core==0.1.0", "crewai>=0.100", "pydantic>=2"]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/stos-technologies/agentcoin"
+Repository = "https://github.com/stos-technologies/agentcoin"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/crewai_agentcoin"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/tests", "/.gitignore"]
+
+[tool.hatch.build.targets.sdist.force-include]
+"LICENSE" = "LICENSE"
+
+[tool.hatch.build.targets.wheel.force-include]
+"LICENSE" = "LICENSE"

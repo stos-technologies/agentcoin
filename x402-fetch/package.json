@@ -15,7 +15,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "engines": {
     "node": ">=20"
@@ -24,5 +25,10 @@
     "@agentcoin/core": "0.1.0"
   },
   "author": "STOS Technologies LLC",
-  "publisher": "STOS Technologies LLC"
+  "publisher": "STOS Technologies LLC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stos-technologies/agentcoin.git"
+  },
+  "homepage": "https://github.com/stos-technologies/agentcoin"
 }

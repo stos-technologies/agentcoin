@@ -11,9 +11,22 @@ classifiers = ["Private :: Do Not Upload"]
 [project.optional-dependencies]
 test = ["langgraph>=0.2"]
 
+[project.urls]
+Homepage = "https://github.com/stos-technologies/agentcoin"
+Repository = "https://github.com/stos-technologies/agentcoin"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/langchain_agentcoin"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/tests", "/.gitignore"]
+
+[tool.hatch.build.targets.sdist.force-include]
+"LICENSE" = "LICENSE"
+
+[tool.hatch.build.targets.wheel.force-include]
+"LICENSE" = "LICENSE"
