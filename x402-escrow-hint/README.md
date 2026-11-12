@@ -17,3 +17,7 @@ Escrow orders through the router need a provider address that calls `JobEscrow.s
 AgentCoin-operated listings and listings claimed in the index (provider = claimant).
 The AgentCoin router never adds this extension to third-party or proxied responses.
 Python equivalent: `agentcoin_core.escrow_hint` in `python/agentcoin-core`.
+
+## License
+
+MIT, Copyright (c) 2026 STOS Technologies LLC.

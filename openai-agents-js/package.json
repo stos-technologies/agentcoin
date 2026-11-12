@@ -7,8 +7,24 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
-  "files": ["dist", "README.md"],
-  "engines": { "node": ">=20" },
-  "dependencies": {"@agentcoin/core":"0.1.0","@openai/agents":"^0.21.0","zod":"^4.1.8"}
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@agentcoin/core": "0.1.0",
+    "@openai/agents": "^0.21.0",
+    "zod": "^4.1.8"
+  },
+  "author": "STOS Technologies LLC",
+  "publisher": "STOS Technologies LLC"
 }

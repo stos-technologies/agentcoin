@@ -7,8 +7,23 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
-  "files": ["dist", "README.md"],
-  "engines": { "node": ">=20" },
-  "dependencies": {"viem":"^2.57.11","canonicalize":"^4.0.0"}
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "viem": "^2.57.11",
+    "canonicalize": "^4.0.0"
+  },
+  "author": "STOS Technologies LLC",
+  "publisher": "STOS Technologies LLC"
 }

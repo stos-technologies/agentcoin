@@ -56,4 +56,8 @@ Environment read by `fromEnv()` / `from_env()`:
 
 No standalone example; every example uses it.
 
-Runs find -> order -> verify against the AgentCoin-operated notary listing (`svc_4c3c948ad42dc519`, 0.01 test USDC). Without `AGENTCOIN_PRIVATE_KEY`, or with `AGENTCOIN_DRY_RUN=1`, it stops after the read-only find step. Results are written to `out/ (git-ignored)`.
+Runs find -> order -> verify against the AgentCoin-operated notary listing (`svc_962928f654d2a8a1`, 0.01 test USDC). Without `AGENTCOIN_PRIVATE_KEY`, or with `AGENTCOIN_DRY_RUN=1`, it stops after the read-only find step. Results are written to `out/ (git-ignored)`.
+
+## License
+
+MIT, Copyright (c) 2026 STOS Technologies LLC.

@@ -1,10 +1,11 @@
-# AgentCoin client libraries and framework plugins
+# AgentCoin
 
-Client side of AgentCoin: a router client, framework tool adapters, an x402 fetch wrapper, an MCP server, and a seller-side x402 escrow-hint helper. The router, scoring, index, evaluator and server are not in this repository.
+AgentCoin is a trust layer for AI-agent work: USDC escrow released on a staked evaluator's verdict. This repository is the client side (router client, framework tool adapters, x402 fetch wrapper, MCP server, seller-side escrow-hint helper). The router, scoring, index, evaluator and hosted service are not in this repository.
 
 | field | value |
 |---|---|
-| status | testnet only, unpublished (no npm or PyPI release) |
+| service | https://agentcoinhq.com |
+| status | Base Sepolia testnet only; unpublished (no npm or PyPI release); all packages `"private": true` |
 | network | Base Sepolia, `eip155:84532` |
 | token | Circle test USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` |
 | escrow contract | `JobEscrow` `0x4EaF6d09F8C22980Bb16E719779ACe73A7b1CB3D` |
@@ -12,8 +13,14 @@ Client side of AgentCoin: a router client, framework tool adapters, an x402 fetc
 | mainnet | refused; `allowMainnet` / `allow_mainnet` is off by default and unsupported |
 | value | test USDC only; no real value |
 | license | MIT |
+| copyright | Copyright (c) 2026 STOS Technologies LLC |
+| publisher | STOS Technologies LLC |
 
 Contract addresses: `deployments/base-sepolia.json` (public subset: addresses and parameters).
+
+## Testnet notice
+
+This software and the hosted service at https://agentcoinhq.com talk only to Base Sepolia (`eip155:84532`). They use Circle test USDC. There is no real value. Mainnet chain ids are refused.
 
 ## Packages
 
@@ -34,15 +41,34 @@ Every plugin wraps one core client and exposes the same seven tools: `find_servi
 | `@agentcoin/agentkit` | `agentkit/` | Coinbase AgentKit action provider |
 | `@agentcoin/x402-escrow-hint` | `x402-escrow-hint/` | seller-side: adds an `agentcoin-escrow` extension to the seller's own 402 body; zero dependencies |
 
-## Install (local path; nothing is published)
+## Install
+
+Local path install; nothing is published to npm or PyPI.
 
 ```
-git clone <this repo> agentcoin-public && cd agentcoin-public
-npm install && npm run build                       # all TS workspaces
-npm install /path/to/agentcoin-public/vercel-ai    # into another project; same for the other TS packages
+git clone <this repo> agentcoin && cd agentcoin
+npm install && npm run build
+```
 
+One line per package, from the repo root, into another project:
+
+```
+npm install /path/to/agentcoin/core-ts
+npm install /path/to/agentcoin/mcp
+npm install /path/to/agentcoin/vercel-ai
+npm install /path/to/agentcoin/langchain-js
+npm install /path/to/agentcoin/openai-agents-js
+npm install /path/to/agentcoin/x402-fetch
+npm install /path/to/agentcoin/agentkit
+npm install /path/to/agentcoin/x402-escrow-hint
+```
+
+```
 cd python && uv venv .venv
-VIRTUAL_ENV=.venv uv pip install -e agentcoin-core -e 'langchain-agentcoin[test]' -e crewai-agentcoin -e openai-agents-agentcoin
+VIRTUAL_ENV=.venv uv pip install -e agentcoin-core
+VIRTUAL_ENV=.venv uv pip install -e 'langchain-agentcoin[test]'
+VIRTUAL_ENV=.venv uv pip install -e openai-agents-agentcoin
+VIRTUAL_ENV=.venv uv pip install -e crewai-agentcoin
 ```
 
 Requirements: Node >= 22.18 to build and run the tests (tests import `.ts` sources directly); built packages declare Node >= 20. Python >= 3.10, `uv`.
@@ -60,7 +86,7 @@ Unit tests use a mocked router and mocked chain clients: no network, no keys. Wh
 
 ## Live examples (opt-in)
 
-`examples/` holds one find -> order -> verify script per plugin against the AgentCoin-operated notary listing (`svc_4c3c948ad42dc519`, 0.01 test USDC), with `allowedServiceIds` pinned to it. Without `AGENTCOIN_PRIVATE_KEY`, or with `AGENTCOIN_DRY_RUN=1`, an example stops after the read-only find step.
+`examples/` holds one find -> order -> verify script per plugin against the AgentCoin-operated notary listing (`svc_962928f654d2a8a1`, 0.01 test USDC), with `allowedServiceIds` pinned to it. Without `AGENTCOIN_PRIVATE_KEY`, or with `AGENTCOIN_DRY_RUN=1`, an example stops after the read-only find step.
 
 ```
 examples/run-live.sh <file containing a Base Sepolia test key> examples/<name>.ts|.py
@@ -84,8 +110,4 @@ One constant per language: `DEFAULT_AGENTCOIN_URL` (TS `core-ts/src/constants.ts
 
 ## License
 
-MIT (`LICENSE`), Copyright (c) 2026 AgentCoin.
-
-## Status
-
-Testnet only: Base Sepolia (`eip155:84532`), Circle test USDC, no real value. Mainnet chain ids are refused.
+MIT (`LICENSE`), Copyright (c) 2026 STOS Technologies LLC.

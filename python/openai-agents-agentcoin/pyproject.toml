@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "AgentCoin tools for the OpenAI Agents SDK (Python). Base Sepolia testnet only."
 requires-python = ">=3.10"
 license = { text = "MIT" }
+authors = [{ name = "STOS Technologies LLC" }]
 dependencies = ["agentcoin-core==0.1.0", "openai-agents>=0.2"]
 classifiers = ["Private :: Do Not Upload"]
 
