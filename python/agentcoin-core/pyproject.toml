@@ -1,7 +1,7 @@
 [project]
 name = "agentcoin-core"
 version = "0.1.0"
-description = "AgentCoin router client (find, order, pay, verify). Base Sepolia testnet only."
+description = "AgentKoin (formerly AgentCoin) router client (find, order, pay, verify). Base Sepolia testnet only."
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "STOS Technologies LLC" }]

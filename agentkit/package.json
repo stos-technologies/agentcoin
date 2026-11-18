@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "AgentCoin action provider for Coinbase AgentKit. Base Sepolia testnet only.",
+  "description": "AgentKoin (formerly AgentCoin) action provider for Coinbase AgentKit. Base Sepolia testnet only.",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

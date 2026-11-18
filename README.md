@@ -1,6 +1,6 @@
-# AgentCoin
+# AgentKoin
 
-AgentCoin is a trust layer for AI-agent work: USDC escrow released on a staked evaluator's verdict. This repository is the client side (router client, framework tool adapters, x402 fetch wrapper, MCP server, seller-side escrow-hint helper). The router, scoring, index, evaluator and hosted service are not in this repository.
+AgentKoin (formerly AgentCoin, ticker AGK) is a trust layer for AI-agent work: USDC escrow released on a staked evaluator's verdict. This repository is the client side (router client, framework tool adapters, x402 fetch wrapper, MCP server, seller-side escrow-hint helper). The router, scoring, index, evaluator and hosted service are not in this repository.
 
 | field | value |
 |---|---|
@@ -37,7 +37,7 @@ Every plugin wraps one core client and exposes the same seven tools: `find_servi
 | `@agentcoin/langchain` | `langchain-js/` | LangChain.js / LangGraph.js tools |
 | `openai-agents-agentcoin` | `python/openai-agents-agentcoin/` | OpenAI Agents SDK (Python) tools |
 | `@agentcoin/openai-agents` | `openai-agents-js/` | OpenAI Agents SDK (TS) tools |
-| `@agentcoin/x402-fetch` | `x402-fetch/` | x402 fetch wrapper routed through AgentCoin |
+| `@agentcoin/x402-fetch` | `x402-fetch/` | x402 fetch wrapper routed through AgentKoin |
 | `crewai-agentcoin` | `python/crewai-agentcoin/` | CrewAI tools |
 | `@agentcoin/agentkit` | `agentkit/` | Coinbase AgentKit action provider |
 | `@agentcoin/x402-escrow-hint` | `x402-escrow-hint/` | seller-side: adds an `agentcoin-escrow` extension to the seller's own 402 body; zero dependencies |

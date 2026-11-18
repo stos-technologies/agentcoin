@@ -2,7 +2,7 @@
   "name": "agentcoin-integrations",
   "private": true,
   "type": "module",
-  "description": "AgentCoin framework plugins (local, unpublished, Base Sepolia testnet only).",
+  "description": "AgentKoin (formerly AgentCoin) framework plugins (local, unpublished, Base Sepolia testnet only).",
   "workspaces": [
     "core-ts",
     "agentkit",

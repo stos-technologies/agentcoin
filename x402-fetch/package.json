@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "fetch wrapper: x402 payments routed through the AgentCoin index with escrow and delivery records. Base Sepolia testnet only.",
+  "description": "fetch wrapper: x402 payments routed through the AgentKoin (formerly AgentCoin) index with escrow and delivery records. Base Sepolia testnet only.",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
