@@ -1,20 +1,20 @@
-# @agentcoin/x402-fetch
+# @agentkoin/x402-fetch
 
 fetch wrapper for x402 sellers. Non-402 responses pass through unchanged. On a 402 it resolves the URL to an AgentCoin listing, places an order (escrow when the seller offers the `agentcoin-escrow` scheme and mode is auto, otherwise x402 exact), and returns the seller response with `x-agentcoin-order-id`, `x-agentcoin-payment-tx` and, for escrow, `x-agentcoin-job-id` headers. Unlisted URLs are refused by default (`unlisted: "refuse"`).
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to npm as `@agentkoin/x402-fetch`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-npm install ./x402-fetch   # local path; not published
+npm install @agentkoin/x402-fetch
 ```
 
 ## Configure
 
 ```
-import { wrapFetchWithAgentCoin } from "@agentcoin/x402-fetch";
-import { fromEnv } from "@agentcoin/core";
+import { wrapFetchWithAgentCoin } from "@agentkoin/x402-fetch";
+import { fromEnv } from "@agentkoin/core";
 const pay = wrapFetchWithAgentCoin(fetch, { client: fromEnv(), mode: "auto" });
 ```
 

@@ -1,5 +1,5 @@
 // x402 fetch wrapper: a plain fetch to the notary URL; the 402 is paid through AgentCoin (auto -> escrow, since the seller offers it).
-import { wrapFetchWithAgentCoin } from "@agentcoin/x402-fetch";
+import { wrapFetchWithAgentCoin } from "@agentkoin/x402-fetch";
 import { DRY_RUN, findNotary, payingClient, notaryBody, record, assertOutcome } from "./_shared.ts";
 
 const NAME = "x402-fetch";

@@ -10,7 +10,8 @@
     "langchain-js",
     "openai-agents-js",
     "vercel-ai",
-    "mcp"
+    "mcp",
+    "x402-escrow-hint"
   ],
   "engines": {
     "node": ">=22"

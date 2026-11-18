@@ -1,12 +1,11 @@
 [project]
-name = "openai-agents-agentcoin"
+name = "openai-agents-agentkoin"
 version = "0.1.0"
 description = "AgentKoin (formerly AgentCoin) tools for the OpenAI Agents SDK (Python). Base Sepolia testnet only."
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "STOS Technologies LLC" }]
-dependencies = ["agentcoin-core==0.1.0", "openai-agents>=0.2"]
-classifiers = ["Private :: Do Not Upload"]
+dependencies = ["agentkoin-core==0.1.0", "openai-agents>=0.2"]
 
 [project.urls]
 Homepage = "https://github.com/stos-technologies/agentcoin"

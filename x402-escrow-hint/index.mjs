@@ -1,4 +1,4 @@
-// @agentcoin/x402-escrow-hint: seller-side x402 v2 extension advertising escrow via AgentCoin (Base Sepolia only).
+// @agentkoin/x402-escrow-hint: seller-side x402 v2 extension advertising escrow via AgentCoin (Base Sepolia only).
 // A seller attaches it to ITS OWN 402 body. It never changes `accepts` and never mutates the input object.
 // The AgentCoin router does not inject this into proxied or third-party responses.
 // Values below are from deployments/base-sepolia.json and src/JobEscrow.sol in the AgentCoin repo.
@@ -6,7 +6,7 @@
 export const EXTENSION_KEY = "agentcoin-escrow";
 export const HINT_VERSION = "agentcoin-escrow-hint/v1";
 
-/** Default service URL; must equal DEFAULT_AGENTCOIN_URL in @agentcoin/core (kept local: zero dependencies). Override with AGENTCOIN_URL. */
+/** Default service URL; must equal DEFAULT_AGENTCOIN_URL in @agentkoin/core (kept local: zero dependencies). Override with AGENTCOIN_URL. */
 export const DEFAULT_AGENTCOIN_URL = "https://agentcoinhq.com";
 const env = globalThis.process?.env ?? {};
 

@@ -3,7 +3,7 @@ import { ViemWalletProvider } from "@coinbase/agentkit";
 import { createWalletClient, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
-import { agentcoinActionProvider, disableAgentKitAnalytics } from "@agentcoin/agentkit";
+import { agentcoinActionProvider, disableAgentKitAnalytics } from "@agentkoin/agentkit";
 import { DRY_RUN, findNotary, notaryBody, record, assertOutcome, parse } from "./_shared.ts";
 
 const NAME = "agentkit";

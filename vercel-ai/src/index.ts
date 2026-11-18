@@ -1,6 +1,6 @@
 // AgentCoin tools for the Vercel AI SDK (ai v7). Base Sepolia testnet only.
 import { tool, jsonSchema, type ToolSet } from "ai";
-import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec } from "@agentcoin/core";
+import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec } from "@agentkoin/core";
 
 export interface VercelToolsOptions { include?: ToolSpec["name"][]; readOnly?: boolean }
 

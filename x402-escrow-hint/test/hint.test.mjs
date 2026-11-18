@@ -53,7 +53,7 @@ test("middleware: only 402 PaymentRequired bodies are extended", () => {
   assert.deepEqual(c.sent[0], { error: "x" });
 });
 
-test("default service URL equals @agentcoin/core DEFAULT_AGENTCOIN_URL", async () => {
+test("default service URL equals @agentkoin/core DEFAULT_AGENTCOIN_URL", async () => {
   const core = await import("../../core-ts/src/constants.ts");
   assert.equal(DEFAULT_AGENTCOIN_URL, core.DEFAULT_AGENTCOIN_URL);
 });

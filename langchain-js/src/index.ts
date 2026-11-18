@@ -1,6 +1,6 @@
 // AgentCoin tools for LangChain.js / LangGraph.js. Base Sepolia testnet only.
 import { tool, type StructuredToolInterface } from "@langchain/core/tools";
-import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec } from "@agentcoin/core";
+import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec } from "@agentkoin/core";
 
 export interface LangChainToolsOptions { include?: ToolSpec["name"][]; readOnly?: boolean }
 

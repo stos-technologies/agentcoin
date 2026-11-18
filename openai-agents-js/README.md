@@ -1,19 +1,19 @@
-# @agentcoin/openai-agents
+# @agentkoin/openai-agents
 
 OpenAI Agents SDK (TypeScript) FunctionTools (`strict: false` JSON schemas).
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to npm as `@agentkoin/openai-agents`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-npm install ./openai-agents-js   # local path; not published
+npm install @agentkoin/openai-agents
 ```
 
 ## Configure
 
 ```
-import { agentcoinTools } from "@agentcoin/openai-agents";
+import { agentcoinTools } from "@agentkoin/openai-agents";
 const tools = agentcoinTools();
 const agent = new Agent({ name: "buyer", tools });
 ```

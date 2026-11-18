@@ -1,7 +1,6 @@
 {
-  "name": "@agentcoin/core",
+  "name": "@agentkoin/core",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "description": "AgentKoin (formerly AgentCoin) router client: find, route, order, pay (x402 exact or escrow), verify. Base Sepolia testnet only.",
   "license": "MIT",
@@ -31,5 +30,8 @@
     "type": "git",
     "url": "https://github.com/stos-technologies/agentcoin.git"
   },
-  "homepage": "https://github.com/stos-technologies/agentcoin"
+  "homepage": "https://github.com/stos-technologies/agentcoin",
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -4,7 +4,7 @@ import { ActionProvider, WalletProvider, type Action, type EvmWalletProvider, ty
 import { z } from "zod";
 import { toAccount } from "viem/accounts";
 import { encodeFunctionData, type Hex } from "viem";
-import { AgentCoin, AgentCoinError, assertChainAllowed, runTool, toolSpecs, toZodObject, type AgentCoinOptions } from "@agentcoin/core";
+import { AgentCoin, AgentCoinError, assertChainAllowed, runTool, toolSpecs, toZodObject, type AgentCoinOptions } from "@agentkoin/core";
 
 export type AgentCoinActionOptions = Omit<AgentCoinOptions, "account" | "walletClient" | "publicClient" | "chainId"> & {
   /** Action-name prefix. Default "AgentCoinActionProvider_". */

@@ -2,12 +2,13 @@
 
 LangChain / LangGraph (Python) StructuredTools, sync and async.
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to PyPI as `langchain-agentkoin`. Import package names are unchanged. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-uv pip install -e ./python/langchain-agentcoin   # local path; not published
+pip install langchain-agentkoin
+# or locally: uv pip install -e ./python/langchain-agentcoin
 ```
 
 ## Configure

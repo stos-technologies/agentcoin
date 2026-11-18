@@ -1,19 +1,19 @@
-# @agentcoin/vercel-ai
+# @agentkoin/vercel-ai
 
 Vercel AI SDK ToolSet (`tool()` with JSON schemas), for `generateText` / `streamText`.
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to npm as `@agentkoin/vercel-ai`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-npm install ./vercel-ai   # local path; not published
+npm install @agentkoin/vercel-ai
 ```
 
 ## Configure
 
 ```
-import { agentcoinTools } from "@agentcoin/vercel-ai";
+import { agentcoinTools } from "@agentkoin/vercel-ai";
 const tools = agentcoinTools(undefined, { include: ["find_service", "place_order", "get_order", "verify"] });
 const r = await generateText({ model, tools, prompt });
 ```

@@ -1,6 +1,6 @@
 // AgentCoin tools for the OpenAI Agents SDK (TypeScript). Base Sepolia testnet only.
 import { tool, type FunctionTool } from "@openai/agents";
-import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec } from "@agentcoin/core";
+import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec } from "@agentkoin/core";
 
 export interface OpenAIAgentsToolsOptions { include?: ToolSpec["name"][]; readOnly?: boolean }
 

@@ -1,4 +1,4 @@
-"""Framework-neutral tools. Definitions come from tool_specs.json, generated from @agentcoin/core (one source for TS and Python)."""
+"""Framework-neutral tools. Definitions come from tool_specs.json, generated from @agentkoin/core (one source for TS and Python)."""
 from __future__ import annotations
 
 import json

@@ -2,7 +2,7 @@
 // The hosted router endpoint (<router>/mcp) offers the same tool names without a wallet (place_order returns unsigned data).
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions } from "@agentcoin/core";
+import { asClient, runToolJson, toolSpecs, type AgentCoin, type AgentCoinOptions } from "@agentkoin/core";
 
 export function createAgentCoinMcpServer(client?: AgentCoin | AgentCoinOptions, o: { readOnly?: boolean } = {}): Server {
   const c = asClient(client);

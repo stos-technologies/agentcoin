@@ -1,6 +1,6 @@
 // OpenAI Agents SDK (TS) tools: find -> order (direct x402) -> verify on Base Sepolia. FunctionTools invoked directly (no LLM key).
-import { agentcoinTools, RunContext } from "@agentcoin/openai-agents";
-import { AgentCoin } from "@agentcoin/core";
+import { agentcoinTools, RunContext } from "@agentkoin/openai-agents";
+import { AgentCoin } from "@agentkoin/core";
 import { DRY_RUN, findNotary, payingClient, notaryBody, record, assertOutcome, parse } from "./_shared.ts";
 
 const NAME = "openai-agents-ts";

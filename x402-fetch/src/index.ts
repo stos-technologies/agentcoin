@@ -4,8 +4,8 @@
 //     JobEscrow until the evaluator verdict; refund on reject or expiry.
 //   - mode "direct" (or "auto" otherwise): x402 exact payment to the seller; the router records an operator-signed delivery record.
 //   - Unlisted sellers: refused by default (unlisted: "refuse"), or paid as plain x402 exact under the same guards (unlisted: "pay").
-// Guards (from @agentcoin/core): eip155:84532 only, USDC only, per-request maxPayment, optional allowedServiceIds.
-import { AgentCoin, AgentCoinError, parse402, signExactPayment, readPaymentResponse, BASE_SEPOLIA, type Json } from "@agentcoin/core";
+// Guards (from @agentkoin/core): eip155:84532 only, USDC only, per-request maxPayment, optional allowedServiceIds.
+import { AgentCoin, AgentCoinError, parse402, signExactPayment, readPaymentResponse, BASE_SEPOLIA, type Json } from "@agentkoin/core";
 import { getAddress } from "viem";
 
 export interface AgentCoinFetchOptions {

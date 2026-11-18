@@ -1,6 +1,6 @@
 // LangChain.js tools: find -> order (direct x402) -> verify on Base Sepolia. Tools invoked directly (no LLM key).
-import { agentcoinTools } from "@agentcoin/langchain";
-import { AgentCoin } from "@agentcoin/core";
+import { agentcoinTools } from "@agentkoin/langchain";
+import { AgentCoin } from "@agentkoin/core";
 import { DRY_RUN, findNotary, payingClient, notaryBody, record, assertOutcome, parse } from "./_shared.ts";
 
 const NAME = "langchain-js";

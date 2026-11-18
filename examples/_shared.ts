@@ -1,7 +1,7 @@
 // Shared example steps: find the AgentCoin-operated notary, build the order body, record results (no secrets).
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
-import { AgentCoin, fromEnv } from "@agentcoin/core";
+import { AgentCoin, fromEnv } from "@agentkoin/core";
 
 export const DRY_RUN = process.env.AGENTCOIN_DRY_RUN === "1" || !process.env.AGENTCOIN_PRIVATE_KEY;
 

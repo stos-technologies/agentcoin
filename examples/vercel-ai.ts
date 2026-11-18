@@ -1,6 +1,6 @@
 // Vercel AI SDK tools: find -> order (escrow) -> verify on Base Sepolia. Tools invoked directly (no LLM key).
-import { agentcoinTools } from "@agentcoin/vercel-ai";
-import { AgentCoin } from "@agentcoin/core";
+import { agentcoinTools } from "@agentkoin/vercel-ai";
+import { AgentCoin } from "@agentkoin/core";
 import { DRY_RUN, findNotary, payingClient, notaryBody, record, assertOutcome } from "./_shared.ts";
 
 const NAME = "vercel-ai";

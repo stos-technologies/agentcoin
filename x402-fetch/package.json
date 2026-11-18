@@ -1,7 +1,6 @@
 {
-  "name": "@agentcoin/x402-fetch",
+  "name": "@agentkoin/x402-fetch",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "description": "fetch wrapper: x402 payments routed through the AgentKoin (formerly AgentCoin) index with escrow and delivery records. Base Sepolia testnet only.",
   "license": "MIT",
@@ -22,7 +21,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@agentcoin/core": "0.1.0"
+    "@agentkoin/core": "0.1.0"
   },
   "author": "STOS Technologies LLC",
   "publisher": "STOS Technologies LLC",
@@ -30,5 +29,8 @@
     "type": "git",
     "url": "https://github.com/stos-technologies/agentcoin.git"
   },
-  "homepage": "https://github.com/stos-technologies/agentcoin"
+  "homepage": "https://github.com/stos-technologies/agentcoin",
+  "publishConfig": {
+    "access": "public"
+  }
 }

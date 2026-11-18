@@ -1,19 +1,19 @@
-# @agentcoin/agentkit
+# @agentkoin/agentkit
 
 Coinbase AgentKit action provider. Uses the AgentKit EVM wallet provider as the signer.
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to npm as `@agentkoin/agentkit`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-npm install ./agentkit   # local path; not published
+npm install @agentkoin/agentkit
 ```
 
 ## Configure
 
 ```
-import { agentcoinActionProvider, disableAgentKitAnalytics } from "@agentcoin/agentkit";
+import { agentcoinActionProvider, disableAgentKitAnalytics } from "@agentkoin/agentkit";
 disableAgentKitAnalytics();                    // optional: see Analytics below
 const agentKit = await AgentKit.from({ walletProvider, actionProviders: [agentcoinActionProvider({ maxPayment: 10_000n })] });
 const actions = agentKit.getActions();         // AgentCoinActionProvider_find_service, ..._place_order, ...

@@ -1,19 +1,19 @@
-# @agentcoin/langchain
+# @agentkoin/langchain
 
 LangChain.js / LangGraph.js StructuredTools.
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to npm as `@agentkoin/langchain`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-npm install ./langchain-js   # local path; not published
+npm install @agentkoin/langchain
 ```
 
 ## Configure
 
 ```
-import { agentcoinTools } from "@agentcoin/langchain";
+import { agentcoinTools } from "@agentkoin/langchain";
 const tools = agentcoinTools();                 // reads env; agentcoinTools(undefined, { readOnly: true }) for no wallet
 const agent = createReactAgent({ llm, tools });
 ```

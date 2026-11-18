@@ -1,19 +1,19 @@
-# @agentcoin/core
+# @agentkoin/core
 
 Thin TypeScript client for the AgentCoin router: search, route, order, pay (x402 exact or JobEscrow), order status, verify, refund. Shared by the TS plugins. Tool definitions in `toolSpecs` are the single source for both languages (`npm run gen:tool-specs` writes the Python copy).
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to npm as `@agentkoin/core`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-npm install ./core-ts   # local path; not published
+npm install @agentkoin/core
 ```
 
 ## Configure
 
 ```
-import { fromEnv } from "@agentcoin/core";
+import { fromEnv } from "@agentkoin/core";
 const agentcoin = fromEnv();                  // AGENTCOIN_PRIVATE_KEY etc.
 const r = await agentcoin.findService({ q: "notary" });
 ```

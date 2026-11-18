@@ -1,13 +1,14 @@
 # agentcoin-core (Python)
 
-Thin Python client for the AgentCoin router, same methods and guards as `@agentcoin/core` in snake_case. Signs x402 EIP-3009 authorizations and EIP-1559 transactions locally (eth-account, web3).
+Thin Python client for the AgentCoin router, same methods and guards as `@agentkoin/core` in snake_case. Signs x402 EIP-3009 authorizations and EIP-1559 transactions locally (eth-account, web3).
 
-Status: local workspace package, not published to any registry. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
+Status: published to PyPI as `agentkoin-core`. Import package names are unchanged. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
 
 ## Install
 
 ```
-uv pip install -e ./python/agentcoin-core   # local path; not published
+pip install agentkoin-core
+# or locally: uv pip install -e ./python/agentcoin-core
 ```
 
 ## Configure

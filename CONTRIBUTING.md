@@ -1,6 +1,6 @@
 # Contributing
 
-This repository holds unpublished AgentCoin client libraries and framework plugins. Packages stay `"private": true` (and Python `Private :: Do Not Upload`). Nothing in this tree is published to npm or PyPI from a routine change.
+This repository holds AgentKoin (formerly AgentCoin) client libraries and framework plugins, published to npm (`@agentkoin/*`) and PyPI (`agentkoin-core` and the framework packages) with Base Sepolia testnet defaults. The workspace root package stays private and is not published.
 
 ## Build and test
 
@@ -13,7 +13,7 @@ Tests use a mocked router and mocked chain clients: no network and no keys. Live
 
 ## Changes
 
-- Keep packages private and MIT-licensed, copyright STOS Technologies LLC.
+- Keep packages MIT-licensed, copyright STOS Technologies LLC, with testnet defaults. Do not publish the workspace root package.
 - Do not commit keys, `.env` files, or secret material.
 - Do not point defaults at mainnet. `allowMainnet` / `allow_mainnet` stays off and unsupported.
 - Do not add persuasive or instruction-shaped text to machine-facing metadata or listings.

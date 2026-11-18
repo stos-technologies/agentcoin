@@ -90,7 +90,7 @@ def test_reputation_local_checks_and_tamper():
 
 
 def test_jcs_matches_ts_vector():
-    # same value as @agentcoin/core keccakJcs([{type:"probe",status:200}])
+    # same value as @agentkoin/core keccakJcs([{type:"probe",status:200}])
     assert keccak_jcs([{"type": "probe", "status": 200}]) == "0x7f52b158689f43397bdfc1c20ff8e906c8dc3b15322a3319fc15dee2c46ec43c"
 
 

@@ -5,7 +5,7 @@ AgentKoin (formerly AgentCoin, ticker AGK) is a trust layer for AI-agent work: U
 | field | value |
 |---|---|
 | service | https://agentcoinhq.com |
-| status | Base Sepolia testnet only; unpublished (no npm or PyPI release); all packages `"private": true` |
+| status | Base Sepolia testnet only; published to npm (`@agentkoin/*`) and PyPI (`agentkoin-core`, `crewai-agentkoin`, `langchain-agentkoin`, `openai-agents-agentkoin`). Workspace root stays private. |
 | network | Base Sepolia, `eip155:84532` |
 | token | Circle test USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` |
 | escrow contract | `JobEscrow` `0x4EaF6d09F8C22980Bb16E719779ACe73A7b1CB3D` |
@@ -29,18 +29,18 @@ Every plugin wraps one core client and exposes the same seven tools: `find_servi
 
 | package | path | kind |
 |---|---|---|
-| `@agentcoin/core` | `core-ts/` | TS router client: find, route, order, pay (x402 exact or escrow), verify |
-| `agentcoin-core` | `python/agentcoin-core/` | Python router client, same surface; includes `agentcoin_core.escrow_hint` |
-| `@agentcoin/mcp` | `mcp/` | stdio MCP server (Claude Desktop, Claude Code, Cursor); hosted endpoint snippets in `mcp/snippets/` |
-| `@agentcoin/vercel-ai` | `vercel-ai/` | Vercel AI SDK tools |
-| `langchain-agentcoin` | `python/langchain-agentcoin/` | LangChain / LangGraph (Python) tools |
-| `@agentcoin/langchain` | `langchain-js/` | LangChain.js / LangGraph.js tools |
-| `openai-agents-agentcoin` | `python/openai-agents-agentcoin/` | OpenAI Agents SDK (Python) tools |
-| `@agentcoin/openai-agents` | `openai-agents-js/` | OpenAI Agents SDK (TS) tools |
-| `@agentcoin/x402-fetch` | `x402-fetch/` | x402 fetch wrapper routed through AgentKoin |
-| `crewai-agentcoin` | `python/crewai-agentcoin/` | CrewAI tools |
-| `@agentcoin/agentkit` | `agentkit/` | Coinbase AgentKit action provider |
-| `@agentcoin/x402-escrow-hint` | `x402-escrow-hint/` | seller-side: adds an `agentcoin-escrow` extension to the seller's own 402 body; zero dependencies |
+| `@agentkoin/core` | `core-ts/` | TS router client: find, route, order, pay (x402 exact or escrow), verify |
+| `agentkoin-core` | `python/agentcoin-core/` | Python router client, same surface; includes `agentcoin_core.escrow_hint` |
+| `@agentkoin/mcp` | `mcp/` | stdio MCP server (Claude Desktop, Claude Code, Cursor); hosted endpoint snippets in `mcp/snippets/` |
+| `@agentkoin/vercel-ai` | `vercel-ai/` | Vercel AI SDK tools |
+| `langchain-agentkoin` | `python/langchain-agentcoin/` | LangChain / LangGraph (Python) tools |
+| `@agentkoin/langchain` | `langchain-js/` | LangChain.js / LangGraph.js tools |
+| `openai-agents-agentkoin` | `python/openai-agents-agentcoin/` | OpenAI Agents SDK (Python) tools |
+| `@agentkoin/openai-agents` | `openai-agents-js/` | OpenAI Agents SDK (TS) tools |
+| `@agentkoin/x402-fetch` | `x402-fetch/` | x402 fetch wrapper routed through AgentKoin |
+| `crewai-agentkoin` | `python/crewai-agentcoin/` | CrewAI tools |
+| `@agentkoin/agentkit` | `agentkit/` | Coinbase AgentKit action provider |
+| `@agentkoin/x402-escrow-hint` | `x402-escrow-hint/` | seller-side: adds an `agentcoin-escrow` extension to the seller's own 402 body; zero dependencies |
 
 ## Install
 
@@ -54,14 +54,15 @@ npm install && npm run build
 One line per package, from the repo root, into another project:
 
 ```
-npm install /path/to/agentcoin/core-ts
-npm install /path/to/agentcoin/mcp
-npm install /path/to/agentcoin/vercel-ai
-npm install /path/to/agentcoin/langchain-js
-npm install /path/to/agentcoin/openai-agents-js
-npm install /path/to/agentcoin/x402-fetch
-npm install /path/to/agentcoin/agentkit
-npm install /path/to/agentcoin/x402-escrow-hint
+npm install @agentkoin/core
+npm install @agentkoin/mcp
+npm install @agentkoin/vercel-ai
+npm install @agentkoin/langchain
+npm install @agentkoin/openai-agents
+npm install @agentkoin/x402-fetch
+npm install @agentkoin/agentkit
+npm install @agentkoin/x402-escrow-hint
+pip install agentkoin-core crewai-agentkoin langchain-agentkoin openai-agents-agentkoin
 ```
 
 ```
@@ -81,7 +82,7 @@ npm install && npm test                                                     # TS
 cd python && VIRTUAL_ENV=.venv uv pip install pytest && .venv/bin/pytest     # Python, mocked router
 ```
 
-`langchain-agentcoin[test]` adds `langgraph`, used by one LangGraph ToolNode test.
+`langchain-agentkoin[test]` adds `langgraph`, used by one LangGraph ToolNode test.
 
 Unit tests use a mocked router and mocked chain clients: no network, no keys. When `python/.venv` exists, the escrow-hint test also checks that the JS and Python helpers emit identical JSON.
 

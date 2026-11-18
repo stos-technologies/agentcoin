@@ -1,4 +1,4 @@
-"""AgentCoin router client (Python). Same flow and guards as @agentcoin/core:
+"""AgentCoin router client (Python). Same flow and guards as @agentkoin/core:
 find_service / route_task -> place_order -> pay (direct x402 exact, or escrow) -> get_order / wait_for_verdict -> verify."""
 from __future__ import annotations
 

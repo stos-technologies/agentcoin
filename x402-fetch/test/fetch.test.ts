@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
-import { AgentCoin } from "@agentcoin/core";
+import { AgentCoin } from "@agentkoin/core";
 import { wrapFetchWithAgentCoin } from "../src/index.ts";
 import { makeMock, BASE, SELLER, SERVICE_ID } from "../../core-ts/test/mock.ts";
 
