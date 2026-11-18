@@ -1,0 +1,85 @@
+# Trusted publishing to npm (@agentkoin/*) via GitHub OIDC.
+# Does not use a long-lived npm token. Provenance is generated automatically
+# on GitHub-hosted runners when the registry trusted publisher is configured.
+#
+# This workflow is manual (workflow_dispatch) so it does not require a git tag
+# or GitHub release. Do not add a tag trigger without a separate founder approval.
+#
+# Registry setup (do this on npmjs.com; this file does not configure it):
+#   For each @agentkoin package: Package Settings → Trusted Publisher
+#     Organization or user: stos-technologies
+#     Repository: agentcoin
+#     Workflow filename: publish-npm.yml
+#     Environment name: (leave blank)
+#     Allowed actions: npm publish
+name: Publish npm
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Use a current npm CLI for OIDC trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Guard package names
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require("fs");
+          const expected = {
+            "core-ts": "@agentkoin/core",
+            "agentkit": "@agentkoin/agentkit",
+            "langchain-js": "@agentkoin/langchain",
+            "mcp": "@agentkoin/mcp",
+            "openai-agents-js": "@agentkoin/openai-agents",
+            "vercel-ai": "@agentkoin/vercel-ai",
+            "x402-fetch": "@agentkoin/x402-fetch",
+            "x402-escrow-hint": "@agentkoin/x402-escrow-hint",
+          };
+          for (const [dir, name] of Object.entries(expected)) {
+            const pkg = JSON.parse(fs.readFileSync(`${dir}/package.json`, "utf8"));
+            if (pkg.name !== name) {
+              throw new Error(`refusing to publish: ${dir} is ${pkg.name}, expected ${name}`);
+            }
+            if (String(pkg.name).startsWith("@agentcoin/")) {
+              throw new Error(`refusing to publish under @agentcoin: ${dir}`);
+            }
+            if (pkg.private === true) {
+              throw new Error(`refusing to publish private package: ${dir}`);
+            }
+          }
+          NODE
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+
+      - name: Publish @agentkoin packages
+        run: |
+          set -euo pipefail
+          # Core first, then dependents. No npm token; OIDC trusted publishing.
+          npm publish --workspace=@agentkoin/core --access public
+          npm publish --workspace=@agentkoin/agentkit --access public
+          npm publish --workspace=@agentkoin/langchain --access public
+          npm publish --workspace=@agentkoin/mcp --access public
+          npm publish --workspace=@agentkoin/openai-agents --access public
+          npm publish --workspace=@agentkoin/vercel-ai --access public
+          npm publish --workspace=@agentkoin/x402-fetch --access public
+          npm publish --workspace=@agentkoin/x402-escrow-hint --access public

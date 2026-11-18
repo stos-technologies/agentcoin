@@ -1,0 +1,70 @@
+# Trusted publishing to PyPI via GitHub OIDC (pypa/gh-action-pypi-publish).
+# Does not use a long-lived PyPI token.
+#
+# This workflow is manual (workflow_dispatch) so it does not require a git tag
+# or GitHub release. Do not add a tag trigger without a separate founder approval.
+#
+# Registry setup (do this on pypi.org; this file does not configure it):
+#   For each project: Publishing settings → Add a new trusted publisher
+#     Owner: stos-technologies
+#     Repository name: agentcoin
+#     Workflow filename: publish-pypi.yml
+#     Environment name: (leave blank)
+#   Projects: agentkoin-core, crewai-agentkoin, langchain-agentkoin, openai-agents-agentkoin
+name: Publish PyPI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Guard distribution names
+        run: |
+          set -euo pipefail
+          python3 <<'PY'
+          from pathlib import Path
+          expected = {
+              "python/agentcoin-core/pyproject.toml": "agentkoin-core",
+              "python/crewai-agentcoin/pyproject.toml": "crewai-agentkoin",
+              "python/langchain-agentcoin/pyproject.toml": "langchain-agentkoin",
+              "python/openai-agents-agentcoin/pyproject.toml": "openai-agents-agentkoin",
+          }
+          for path, name in expected.items():
+              text = Path(path).read_text()
+              if f'name = "{name}"' not in text:
+                  raise SystemExit(f"refusing to publish: {path} does not name {name}")
+              if "Private :: Do Not Upload" in text:
+                  raise SystemExit(f"refusing to publish: {path} is marked Private :: Do Not Upload")
+          PY
+
+      - name: Build distributions
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for d in python/agentcoin-core python/crewai-agentcoin python/langchain-agentcoin python/openai-agents-agentcoin; do
+            uv build --directory "$d"
+            cp "$d"/dist/*.whl "$d"/dist/*.tar.gz dist/
+          done
+          ls -la dist
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist
