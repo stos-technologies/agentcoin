@@ -3,6 +3,8 @@
 #
 # This workflow is manual (workflow_dispatch) so it does not require a git tag
 # or GitHub release. Do not add a tag trigger without a separate founder approval.
+# The required `package` input selects exactly one project; only that project's
+# distributions are built and uploaded.
 #
 # Registry setup (do this on pypi.org; this file does not configure it):
 #   For each project: Publishing settings → Add a new trusted publisher
@@ -15,6 +17,16 @@ name: Publish PyPI
 
 on:
   workflow_dispatch:
+    inputs:
+      package:
+        description: PyPI project to build and upload (exactly one)
+        required: true
+        type: choice
+        options:
+          - agentkoin-core
+          - crewai-agentkoin
+          - langchain-agentkoin
+          - openai-agents-agentkoin
 
 permissions:
   contents: read
@@ -35,34 +47,71 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v6
 
-      - name: Guard distribution names
+      - name: Resolve package directory
+        id: pkg
+        run: |
+          set -euo pipefail
+          case "${{ inputs.package }}" in
+            agentkoin-core) dir="python/agentcoin-core" ;;
+            crewai-agentkoin) dir="python/crewai-agentcoin" ;;
+            langchain-agentkoin) dir="python/langchain-agentcoin" ;;
+            openai-agents-agentkoin) dir="python/openai-agents-agentcoin" ;;
+            *) echo "unknown package: ${{ inputs.package }}" >&2; exit 1 ;;
+          esac
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "Selected ${{ inputs.package }} from $dir"
+
+      - name: Guard distribution name
         run: |
           set -euo pipefail
           python3 <<'PY'
           from pathlib import Path
+          import os
           expected = {
-              "python/agentcoin-core/pyproject.toml": "agentkoin-core",
-              "python/crewai-agentcoin/pyproject.toml": "crewai-agentkoin",
-              "python/langchain-agentcoin/pyproject.toml": "langchain-agentkoin",
-              "python/openai-agents-agentcoin/pyproject.toml": "openai-agents-agentkoin",
+              "python/agentcoin-core": "agentkoin-core",
+              "python/crewai-agentcoin": "crewai-agentkoin",
+              "python/langchain-agentcoin": "langchain-agentkoin",
+              "python/openai-agents-agentcoin": "openai-agents-agentkoin",
           }
-          for path, name in expected.items():
-              text = Path(path).read_text()
-              if f'name = "{name}"' not in text:
-                  raise SystemExit(f"refusing to publish: {path} does not name {name}")
-              if "Private :: Do Not Upload" in text:
-                  raise SystemExit(f"refusing to publish: {path} is marked Private :: Do Not Upload")
+          selected = os.environ["SELECTED_PACKAGE"]
+          directory = os.environ["PACKAGE_DIR"]
+          want = expected[directory]
+          if selected != want:
+              raise SystemExit(f"refusing: input {selected} does not match {directory} -> {want}")
+          text = Path(directory, "pyproject.toml").read_text()
+          if f'name = "{want}"' not in text:
+              raise SystemExit(f"refusing to publish: {directory}/pyproject.toml does not name {want}")
+          if "Private :: Do Not Upload" in text:
+              raise SystemExit(f"refusing to publish: {directory} is marked Private :: Do Not Upload")
           PY
+        env:
+          SELECTED_PACKAGE: ${{ inputs.package }}
+          PACKAGE_DIR: ${{ steps.pkg.outputs.dir }}
 
       - name: Build distributions
         run: |
           set -euo pipefail
           mkdir -p dist
-          for d in python/agentcoin-core python/crewai-agentcoin python/langchain-agentcoin python/openai-agents-agentcoin; do
-            uv build --directory "$d"
-            cp "$d"/dist/*.whl "$d"/dist/*.tar.gz dist/
-          done
+          uv build --directory "${{ steps.pkg.outputs.dir }}"
+          cp "${{ steps.pkg.outputs.dir }}"/dist/*.whl "${{ steps.pkg.outputs.dir }}"/dist/*.tar.gz dist/
+          echo "Built artifacts:"
           ls -la dist
+          python3 - <<'PY'
+          import os, sys
+          from pathlib import Path
+          selected = os.environ["SELECTED_PACKAGE"]
+          files = sorted(Path("dist").iterdir())
+          if not files:
+              raise SystemExit("no artifacts in dist/")
+          for f in files:
+              # filenames use underscores: agentkoin_core-0.1.1-...
+              prefix = selected.replace("-", "_") + "-"
+              if not f.name.startswith(prefix):
+                  raise SystemExit(f"refusing to upload unexpected artifact {f.name} for {selected}")
+          print("artifact check ok:", ", ".join(f.name for f in files))
+          PY
+        env:
+          SELECTED_PACKAGE: ${{ inputs.package }}
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
