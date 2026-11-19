@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agentkoin.authcapture-terms/0.1",
+  "title": "AgentKoin authCapture terms (sample format)",
+  "type": "object",
+  "required": ["kind", "network", "outside-verdict", "arbiterTerms", "schedule", "deployment", "paymentInfoConstraints", "fieldSupport"],
+  "$defs": {
+    "address": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+    "caip10": { "type": "string", "pattern": "^eip155:[0-9]+:0x[0-9a-fA-F]{40}$" },
+    "bytes32": { "type": "string", "pattern": "^0x[0-9a-f]{64}$" },
+    "uint": { "type": "integer", "minimum": 0 },
+    "bps": { "type": "integer", "minimum": 0, "maximum": 10000 }
+  },
+  "properties": {
+    "kind": { "const": "agentkoin.authcapture-terms/0.1" },
+    "network": { "type": "string", "pattern": "^eip155:[0-9]+$" },
+    "outside-verdict": {
+      "type": "object",
+      "required": ["version", "acceptIndex", "terms", "termsHash", "binding"],
+      "properties": {
+        "version": { "type": "string" },
+        "acceptIndex": { "$ref": "#/$defs/uint" },
+        "terms": {
+          "type": "object",
+          "required": ["evaluator", "evaluatorRegistry", "criteria", "requiredChecks", "payoutBps", "submitBy", "evalWindowSeconds", "challengeWindowSeconds", "onMissedVerdict"],
+          "properties": {
+            "evaluator": { "$ref": "#/$defs/caip10" },
+            "evaluatorRegistry": { "$ref": "#/$defs/caip10" },
+            "criteria": {
+              "type": "object",
+              "required": ["uri", "sha256"],
+              "properties": { "uri": { "type": ["string", "null"] }, "localPath": { "type": "string" }, "sha256": { "$ref": "#/$defs/bytes32" } }
+            },
+            "requiredChecks": { "type": "integer", "minimum": 1, "maximum": 15 },
+            "payoutBps": { "type": "array", "minItems": 2, "maxItems": 16, "items": { "$ref": "#/$defs/bps" } },
+            "submitBy": { "$ref": "#/$defs/uint" },
+            "evalWindowSeconds": { "type": "integer", "minimum": 1 },
+            "challengeWindowSeconds": { "type": "integer", "minimum": 1 },
+            "onMissedVerdict": { "const": "void" }
+          }
+        },
+        "termsHash": { "$ref": "#/$defs/bytes32" },
+        "binding": { "const": "salt-commit-v1" }
+      }
+    },
+    "arbiterTerms": {
+      "type": "object",
+      "required": ["evaluator", "criteriaHash", "scheduleHash", "requiredTotal", "bpsTable", "submitBy", "evalWindow", "termsHash", "typehash", "saltTypehash"],
+      "properties": {
+        "evaluator": { "$ref": "#/$defs/address" },
+        "criteriaHash": { "$ref": "#/$defs/bytes32" },
+        "scheduleHash": { "$ref": "#/$defs/bytes32" },
+        "requiredTotal": { "type": "integer", "minimum": 1, "maximum": 15 },
+        "bpsTable": { "type": "string", "pattern": "^0x[0-9a-f]{1,64}$" },
+        "submitBy": { "type": "integer", "minimum": 0, "maximum": 281474976710655 },
+        "evalWindow": { "type": "integer", "minimum": 1, "maximum": 4294967295 },
+        "termsHash": { "$ref": "#/$defs/bytes32" },
+        "typehash": { "$ref": "#/$defs/bytes32" },
+        "saltTypehash": { "$ref": "#/$defs/bytes32" }
+      }
+    },
+    "schedule": {
+      "type": "object",
+      "required": ["sha256", "required"],
+      "properties": { "sha256": { "$ref": "#/$defs/bytes32" }, "required": { "type": "array", "items": { "type": "string" } } }
+    },
+    "deployment": {
+      "type": "object",
+      "required": ["chainId", "arbiter", "arbiterVersion", "authCaptureEscrow", "evaluatorRegistry", "token", "arbitrator", "challengesEnabled", "maxAmountPerPayment", "config"],
+      "properties": {
+        "chainId": { "type": "integer" },
+        "arbiter": { "$ref": "#/$defs/address" },
+        "arbiterVersion": { "type": "string" },
+        "authCaptureEscrow": { "$ref": "#/$defs/address" },
+        "erc3009PaymentCollector": { "$ref": "#/$defs/address" },
+        "evaluatorRegistry": { "$ref": "#/$defs/address" },
+        "token": { "$ref": "#/$defs/address" },
+        "arbitrator": { "$ref": "#/$defs/address" },
+        "challengesEnabled": { "type": "boolean" },
+        "maxAmountPerPayment": { "type": "string", "pattern": "^[0-9]+$" },
+        "config": {
+          "type": "object",
+          "required": ["evalWindow", "challengeWindow", "rulingWindow", "minMarginSeconds"],
+          "additionalProperties": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "paymentInfoConstraints": {
+      "type": "object",
+      "required": ["operator", "token", "maxAmountAtMost", "minFeeBps", "maxFeeBps", "feeReceiver", "refundExpiryEqualsAuthorizationExpiry", "authorizationExpiryAtLeast"],
+      "properties": {
+        "operator": { "$ref": "#/$defs/address" },
+        "token": { "$ref": "#/$defs/address" },
+        "minFeeBps": { "const": 0 },
+        "maxFeeBps": { "const": 0 },
+        "feeReceiver": { "const": "0x0000000000000000000000000000000000000000" },
+        "refundExpiryEqualsAuthorizationExpiry": { "const": true },
+        "authorizationExpiryAtLeast": { "$ref": "#/$defs/uint" }
+      }
+    },
+    "fieldSupport": {
+      "type": "object",
+      "required": ["deployedV0_1", "sourceV0_2Only", "onDeployedV0_1"]
+    }
+  }
+}

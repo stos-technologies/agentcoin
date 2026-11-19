@@ -1,0 +1,197 @@
+{
+  "$schema": "./terms.schema.json",
+  "kind": "agentkoin.authcapture-terms/0.1",
+  "status": "sample for a testnet handover; unaudited prototype; Base Sepolia test funds only",
+  "network": "eip155:84532",
+  "outside-verdict": {
+    "version": "0.1",
+    "acceptIndex": 0,
+    "terms": {
+      "evaluator": "eip155:84532:0x000f3e27EAf5d2C1A30F4fE50FF1bcC4A78f124A",
+      "evaluatorRegistry": "eip155:84532:0x30576DE005df028D1947C56dEcc85a2a5612036a",
+      "criteria": {
+        "uri": "https://raw.githubusercontent.com/stos-technologies/agentcoin/main/examples/authcapture/criteria.json",
+        "localPath": "examples/authcapture/criteria.json",
+        "sha256": "0x7d8c12562de007ddb6b631031b22719aa45d560fb14f3ada92b4b15d0844d49d"
+      },
+      "requiredChecks": 4,
+      "payoutBps": [
+        0,
+        2500,
+        5000,
+        7500,
+        10000
+      ],
+      "submitBy": 1795798800,
+      "evalWindowSeconds": 21600,
+      "challengeWindowSeconds": 600,
+      "onMissedVerdict": "void"
+    },
+    "termsHash": "0x243cd0fc625994533a17f07bce6c9428dbf0277f080b8d63e7bb8202b3f3bfb4",
+    "termsHashScheme": "AgentKoinTerms: keccak256(abi.encode(TERMS_TYPEHASH, evaluator, criteriaHash, scheduleHash, requiredTotal, bpsTable, submitBy, evalWindow)); the arbiter's TERMS_TYPEHASH, not a typehash defined by the x402 draft",
+    "binding": "salt-commit-v1",
+    "bindingSaltScheme": "PaymentInfo.salt = uint256(keccak256(abi.encode(keccak256(\"AgentKoinTermsSalt(bytes32 termsHash,uint256 saltNonce)\"), termsHash, saltNonce))); the draft text names x402OutsideVerdictSalt, the deployed arbiter uses AgentKoinTermsSalt"
+  },
+  "arbiterTerms": {
+    "evaluator": "0x000f3e27EAf5d2C1A30F4fE50FF1bcC4A78f124A",
+    "criteriaHash": "0x7d8c12562de007ddb6b631031b22719aa45d560fb14f3ada92b4b15d0844d49d",
+    "scheduleHash": "0xcb73b3d5654fa9a51e4416b7419c827f17527dd8b3e666e73c51281311e700b3",
+    "requiredTotal": 4,
+    "bpsTable": "0x27101d4c138809c40000",
+    "submitBy": 1795798800,
+    "evalWindow": 21600,
+    "termsHash": "0x243cd0fc625994533a17f07bce6c9428dbf0277f080b8d63e7bb8202b3f3bfb4",
+    "typehash": "0x8d7df2c9a7e593099e92624928823bac5a33a3a855c6103a0fa96551b7abfe8c",
+    "saltTypehash": "0xb4608ec125169501298305d6a6508051f2d307b371f700d58fe7c68a4b2102c0"
+  },
+  "schedule": {
+    "localPath": "examples/authcapture/schedule.json",
+    "sha256": "0xcb73b3d5654fa9a51e4416b7419c827f17527dd8b3e666e73c51281311e700b3",
+    "required": [
+      "result-digest",
+      "utf8-json",
+      "jcs-canonical",
+      "max-size"
+    ]
+  },
+  "deployment": {
+    "chainId": 84532,
+    "arbiter": "0x8b4B3A8c6389a17AA7f66e18F59Afb36Cc9C453A",
+    "arbiterVersion": "0.1",
+    "arbiterSource": "Sourcify exact_match: https://repo.sourcify.dev/84532/0x8b4B3A8c6389a17AA7f66e18F59Afb36Cc9C453A",
+    "authCaptureEscrow": "0xf96815976523E00e65Be8f34cA5e64b4f41EB19c",
+    "erc3009PaymentCollector": "0x8612dfdc421f80336cd14E8EF9cb1E765dB5ab88",
+    "evaluatorRegistry": "0x30576DE005df028D1947C56dEcc85a2a5612036a",
+    "token": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    "arbitrator": "0x0000000000000000000000000000000000000000",
+    "challengesEnabled": false,
+    "challengesNote": "arbitrator is the zero address, so challenge() reverts NoArbitrator; a verdict becomes final after challengeWindow with no dispute path",
+    "maxAmountPerPayment": "1000000",
+    "config": {
+      "evalWindow": 3600,
+      "challengeWindow": 600,
+      "rulingWindow": 3600,
+      "minMarginSeconds": 3600
+    },
+    "slasherRole": "proposed on the registry; eta 1795231907 (2026-11-20 22:31:47 EST); until executeSlasher runs, bindTerms reverts because the registry refuses lockExposure"
+  },
+  "paymentInfoConstraints": {
+    "operator": "0x8b4B3A8c6389a17AA7f66e18F59Afb36Cc9C453A",
+    "token": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    "maxAmountAtMost": "1000000",
+    "minFeeBps": 0,
+    "maxFeeBps": 0,
+    "feeReceiver": "0x0000000000000000000000000000000000000000",
+    "refundExpiryEqualsAuthorizationExpiry": true,
+    "authorizationExpiryAtLeast": 1795828200,
+    "authorizationExpiryRule": "authorizationExpiry >= submitBy + evalWindow + challengeWindow + rulingWindow + minMarginSeconds",
+    "authorizeNoLaterThan": "now + evalWindowFloor(3600) + challengeWindow + rulingWindow + minMarginSeconds <= authorizationExpiry",
+    "captureMode": "deferred",
+    "operatorType": "custom",
+    "tokenCollector": "0x8612dfdc421f80336cd14E8EF9cb1E765dB5ab88"
+  },
+  "lifecycle": [
+    {
+      "step": "authorize",
+      "by": "anyone (facilitator)",
+      "call": "authorize(PaymentInfo,uint256,address,bytes)"
+    },
+    {
+      "step": "bindTerms",
+      "by": "the named evaluator",
+      "call": "bindTerms(PaymentInfo,Terms,uint256 saltNonce)",
+      "before": "submitBy"
+    },
+    {
+      "step": "submit",
+      "by": "receiver",
+      "v0_1": "submit(PaymentInfo,bytes32 deliverableHash)",
+      "v0_2": "submit(PaymentInfo,bytes32 deliverableHash,bytes32 resultDigest)",
+      "before": "submitBy"
+    },
+    {
+      "step": "verdict",
+      "by": "evaluator",
+      "v0_1": "verdictScheduled(PaymentInfo,uint16 passMask,uint8 requiredTotal,uint8 requiredPass,bytes32 reasonHash)",
+      "v0_2": "verdictScheduled(...,bytes32 resultDigest,bytes32 reasonHash) or verdictBySig(PaymentInfo,OutsideVerdict,bytes)",
+      "within": "evalWindow after submit"
+    },
+    {
+      "step": "finalize",
+      "by": "anyone",
+      "call": "finalize(PaymentInfo)",
+      "after": "challengeWindow after the verdict",
+      "effect": "capture amount*payoutBps/10000, void the rest"
+    },
+    {
+      "step": "timeoutRelease",
+      "by": "anyone",
+      "call": "timeoutRelease(PaymentInfo)",
+      "after": "evalWindow with no verdict",
+      "effect": "full void to payer, evaluator slashed"
+    },
+    {
+      "step": "voidNoSubmit / voidUnbound",
+      "by": "anyone",
+      "after": "submitBy",
+      "effect": "full void to payer, no slash"
+    }
+  ],
+  "fieldSupport": {
+    "deployedV0_1": [
+      "salt-committed terms",
+      "bindTerms by evaluator",
+      "submit deliverableHash",
+      "verdictScheduled (on-chain evaluator call)",
+      "bps-table partial capture + void remainder",
+      "timeout void + slash"
+    ],
+    "sourceV0_2Only": [
+      "resultDigest committed at submit and required in every verdict",
+      "verdictBySig (EIP-712 OutsideVerdict, domain x402 outside-verdict, version 0.2)",
+      "BuyerAcceptance record (EIP-712, payer-signed, separate storage)",
+      "outcome(key).buyerAccepted / buyerDecision",
+      "Finalized event carries buyerDecision"
+    ],
+    "onDeployedV0_1": {
+      "resultDigest": "not stored by the contract; a receiver can pass the sha256 result digest as deliverableHash so the digest is still fixed on-chain at submit, and the evaluator's off-chain record can name it",
+      "buyerAcceptance": "no on-chain record; absence is the only state (buyerAccepted=false), and a capture does not mean the buyer accepted"
+    }
+  },
+  "resultDigest": {
+    "definition": "sha256 over the exact canonical bytes of the result: raw bytes, or UTF-8 of RFC 8785 (JCS) for JSON",
+    "example": {
+      "json": {
+        "hello": "agentkoin"
+      },
+      "sha256": "0xadd1011fdcb7e822b93c5cd47ab8fbf158b80beebe12ae5d9350f770542e0ee6"
+    }
+  },
+  "eip712": {
+    "domain": {
+      "name": "x402 outside-verdict",
+      "version": "0.2",
+      "chainId": 84532,
+      "verifyingContract": "the v0.2 arbiter address (not deployed)"
+    },
+    "OutsideVerdict": "OutsideVerdict(bytes32 paymentInfoHash,bytes32 termsHash,bytes32 deliverableHash,bytes32 resultDigest,uint16 passMask,uint16 payoutBps,bytes32 reasonHash)",
+    "OutsideVerdictTypehash": "0x591be969cfdc1c73065a4689469d787359b36ca77ca68f02d74255ef89230175",
+    "BuyerAcceptance": "BuyerAcceptance(bytes32 paymentInfoHash,bytes32 termsHash,bytes32 resultDigest,uint8 decision,bytes32 noteHash)",
+    "BuyerAcceptanceTypehash": "0xb5e2c35eb12f1dfae64e5f706cd4e3579b5254f52dd2f98038d407969c4c3849",
+    "buyerDecision": {
+      "0": "none (no record)",
+      "1": "accepted",
+      "2": "rejected"
+    }
+  },
+  "variableFields": [
+    "payer",
+    "receiver",
+    "amount",
+    "saltNonce",
+    "preApprovalExpiry",
+    "authorizationExpiry"
+  ],
+  "generatedBy": "AgentKoin arbiter-sdk (termsHash, salt and digests are cross-checked against the arbiter contract); examples/authcapture/verify.mjs recomputes them",
+  "termsHashInputs": "evaluator, criteriaHash, scheduleHash, requiredTotal, bpsTable, submitBy, evalWindow; any change gives a different termsHash and salt"
+}
