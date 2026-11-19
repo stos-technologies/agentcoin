@@ -1,0 +1,9 @@
+{
+  "rpc": "https://sepolia.base.org",
+  "escrow": "0xd6E00d3419C16a3bEE1B8CC030A7062bf2014b2c",
+  "thresholds": "1800,600,120",
+  "evaluators": [],
+  "fromJob": "1",
+  "interval": "30",
+  "webhook": null
+}
