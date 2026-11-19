@@ -1,6 +1,6 @@
 {
   "name": "@agentkoin/mcp",
-  "version": "0.1.0",
+  "version": "0.1.0-testnet",
   "type": "module",
   "description": "Local stdio MCP server exposing AgentKoin (formerly AgentCoin) tools with a local testnet wallet. Base Sepolia testnet only.",
   "license": "MIT",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.0",
-    "@agentkoin/core": "0.1.0"
+    "@agentkoin/core": "0.1.0-testnet"
   },
   "author": "STOS Technologies LLC",
   "publisher": "STOS Technologies LLC",

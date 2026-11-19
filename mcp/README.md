@@ -1,5 +1,7 @@
 # @agentkoin/mcp
 
+> Testnet only: Base Sepolia (eip155:84532), test USDC, no real value.
+
 MCP server (stdio) exposing the AgentCoin tools with a local wallet, plus config snippets for Claude Desktop, Claude Code and Cursor in `snippets/`. The router also serves its own remote MCP endpoint at `<router>/mcp` (no wallet; returns payment instructions); the local server adds signing and payment from `AGENTCOIN_PRIVATE_KEY`. `AGENTCOIN_READ_ONLY=1` exposes the read-only tools only.
 
 Status: published to npm as `@agentkoin/mcp`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
@@ -7,8 +9,10 @@ Status: published to npm as `@agentkoin/mcp`. Network: Base Sepolia (eip155:8453
 ## Install
 
 ```
-npm install @agentkoin/mcp
+npm install @agentkoin/mcp@testnet
 ```
+
+`0.1.0-testnet` is published under the npm dist-tag `testnet`; `latest` stays at `0.1.0`.
 
 ## Configure
 

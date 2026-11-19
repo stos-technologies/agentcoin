@@ -1,5 +1,7 @@
 # @agentkoin/core
 
+> Testnet only: Base Sepolia (eip155:84532), test USDC, no real value.
+
 Thin TypeScript client for the AgentCoin router: search, route, order, pay (x402 exact or JobEscrow), order status, verify, refund. Shared by the TS plugins. Tool definitions in `toolSpecs` are the single source for both languages (`npm run gen:tool-specs` writes the Python copy).
 
 Status: published to npm as `@agentkoin/core`. Network: Base Sepolia (eip155:84532), test USDC only. Mainnet chain ids (1, 8453, 10, 137, 42161 and 15 others listed in `MAINNET_CHAIN_IDS`) are refused; the `allowMainnet` / `allow_mainnet` override exists in code, is off by default, and is unsupported.
@@ -7,8 +9,10 @@ Status: published to npm as `@agentkoin/core`. Network: Base Sepolia (eip155:845
 ## Install
 
 ```
-npm install @agentkoin/core
+npm install @agentkoin/core@testnet
 ```
+
+`0.1.0-testnet` is published under the npm dist-tag `testnet`; `latest` stays at `0.1.0`.
 
 ## Configure
 
