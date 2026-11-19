@@ -40,3 +40,11 @@ def test_matches_deployment_and_js_helper():
     assert BASE_SEPOLIA_ESCROW["token"] == d["usdc"]["address"]
     assert BASE_SEPOLIA_ESCROW["evalWindowSeconds"] == d["params"]["evalWindow"] and BASE_SEPOLIA_ESCROW["challengeWindowSeconds"] == d["params"]["challengeWindow"]
     assert BASE_SEPOLIA_ESCROW["evaluatorMinStake"] == str(d["params"]["minStake"])
+
+
+def test_challenge_wording_no_arbitrator():
+    h = escrow_hint(provider=PROVIDER)
+    ch = h["info"]["escrow"]["evaluatorModel"]["challenge"]
+    assert "no arbitrator" in ch and "NoArbitrator" in ch
+    assert "MockArbitrator" not in ch and "may challenge" not in ch
+    assert "only the client may challenge" not in h["info"]["escrow"]["instantRelease"]

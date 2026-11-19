@@ -71,3 +71,12 @@ test("constants match deployments/base-sepolia.json; Python helper emits identic
   const out = execFileSync(py, ["-c", `import json; from agentcoin_core.escrow_hint import escrow_hint; print(json.dumps(escrow_hint(provider="${PROVIDER}", service_id="svc_${"b".repeat(16)}")))`], { encoding: "utf8" });
   assert.deepEqual(JSON.parse(out), escrowHint({ provider: PROVIDER, serviceId: "svc_" + "b".repeat(16) }));
 });
+
+test("evaluatorModel.challenge states no arbitrator; no challenge-by-bond wording", () => {
+  const h = escrowHint({ provider: PROVIDER });
+  const ch = h.info.escrow.evaluatorModel.challenge;
+  assert.match(ch, /no arbitrator/);
+  assert.match(ch, /NoArbitrator/);
+  assert.doesNotMatch(ch, /MockArbitrator|may challenge/);
+  assert.doesNotMatch(h.info.escrow.instantRelease, /only the client may challenge/);
+});

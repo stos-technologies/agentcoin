@@ -81,12 +81,12 @@ export function escrowHint(o = {}) {
         minStake: c.evaluatorMinStake,
         verdict: "evaluator calls verdict(jobId, Complete|Reject|Partial, payoutBps, reasonHash) on a Submitted job",
         evalWindowSeconds: c.evalWindowSeconds,
-        challenge: `client or provider may challenge a verdict within challengeWindowSeconds (${c.challengeWindowSeconds}) with a bond plus arbitration fee; testnet arbitrator is MockArbitrator`,
+        challenge: `no arbitrator: JobEscrow.arbitrator() is address(0) (set 2026-11-15), so challenge() reverts NoArbitrator and a verdict cannot be overturned; finalize(jobId) executes it after challengeWindowSeconds (${c.challengeWindowSeconds})`,
         challengeWindowSeconds: c.challengeWindowSeconds,
       },
       payout: "after challengeWindowSeconds, finalize(jobId) pays provider amount * payoutBps / 10000 minus protocol and evaluator fees",
       refunds: refundTerms(c),
-      instantRelease: "if amount <= instantThreshold and the provider bond covers amount * instantBondCoverBps, submit releases payment without a verdict; then only the client may challenge",
+      instantRelease: "if amount <= instantThreshold and the provider bond covers amount * instantBondCoverBps, submit releases payment without a verdict",
     },
   };
   return {
