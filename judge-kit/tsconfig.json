@@ -12,7 +12,9 @@
     "types": ["node"],
     "rootDir": "src",
     "outDir": "dist",
-    "declaration": false
+    "declaration": false,
+    "allowJs": true,
+    "checkJs": false
   },
   "include": ["src"]
 }

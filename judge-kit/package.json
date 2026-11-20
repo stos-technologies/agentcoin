@@ -1,8 +1,8 @@
 {
   "name": "@agentkoin/judge-kit",
-  "version": "0.1.0-testnet",
+  "version": "0.1.1-testnet",
   "type": "module",
-  "description": "AgentKoin evaluator starter kit and evalWindow watcher (JobEscrow v0.6, AD-014 verdictScheduled). Base Sepolia testnet only.",
+  "description": "AgentKoin evaluator starter kit and evalWindow watcher (JobEscrow v0.6, AD-014 verdictScheduled) and trustless job verifier (verify <jobId>). Base Sepolia testnet only.",
   "license": "MIT",
   "bin": {
     "agentkoin-judge-kit": "dist/cli.js"
@@ -22,7 +22,7 @@
     "profile": "node src/profile.ts",
     "test": "node --test test/*.test.ts"
   },
-  "dependencies": { "viem": "^2.57.11" },
+  "dependencies": { "viem": "^2.57.11", "canonicalize": "^4.0.0" },
   "devDependencies": { "typescript": "^5.9.3", "@types/node": "^22.0.0" },
   "keywords": ["agentkoin", "evaluator", "erc-8183", "base-sepolia", "testnet"],
   "author": "STOS Technologies LLC",

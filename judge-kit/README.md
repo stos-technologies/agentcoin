@@ -13,6 +13,11 @@ Default escrow: `0xd6E00d3419C16a3bEE1B8CC030A7062bf2014b2c`. Default RPC: `http
 
 `@agentkoin/judge-kit@0.1.0-testnet` is published under the npm dist-tag `testnet`; the installed command is `agentkoin-judge-kit`. The `agentkoin-judge-kit <command>` CLI takes the same options as `node src/<command>.ts` below.
 
+## Verify a job (trustless)
+    npx @agentkoin/judge-kit@testnet verify <jobId> [--escrow 0x..] [--rpc URL] [--json] [--no-sourcify]
+
+Re-runs 9 checks (job on-chain, spec hash, deliverable hash, payment flow, submit tx, verdict signer, settlement, evaluator stake, escrow bytecode via Sourcify) against a Base Sepolia RPC. It talks only to the public RPC (publicnode, then sepolia.base.org), `https://agentcoinhq.com` (optional proof hints and the signing key; `--no-server` skips them) and Sourcify. Read-only, no key. Exit 0 = no check failed.
+
 ## Setup (from source)
     cd judge-kit && npm install
 
