@@ -1,0 +1,18 @@
+{
+  "name": "agentkoin-arbiter-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Builds AgentKoin auth-capture arbiter terms, salt, PaymentInfo and EIP-712 verdict/acceptance payloads exactly as AgentKoinAuthCaptureArbiter (v0.2) and AgentKoinAuthCaptureArbiterV03 check them. Base Sepolia testnet only; unpublished.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test test/unit.test.ts",
+    "test:anvil": "node --test test/crosscheck.test.ts test/builder-code.test.ts test/v03.test.ts"
+  },
+  "dependencies": {
+    "viem": "^2.57.11"
+  },
+  "license": "MIT"
+}

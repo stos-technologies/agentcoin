@@ -1,0 +1,146 @@
+{
+  "schema": "agentkoin.stripe-probe/0.1",
+  "mode": "broadcast",
+  "stripe": {
+    "apiBase": "https://api.stripe.com",
+    "version": "2026-07-29.preview",
+    "versionStatus": "unverified: docs show 2026-05-27.preview and 2026-07-29.preview"
+  },
+  "amountAtomic": "10000",
+  "amountCents": 1,
+  "steps": [
+    {
+      "name": "stripe.createDepositAddress",
+      "attempts": [
+        {
+          "label": "createDepositAddress",
+          "stripeVersion": "2026-07-29.preview",
+          "httpStatus": 200,
+          "response": {
+            "id": "cda_1UdhgEI5sElyKBwAhdWqEpmd",
+            "object": "crypto.deposit_address",
+            "address": "0x3b0b371ae3cb08f272b87319684f6518b3b313a0",
+            "created": 1795142162,
+            "livemode": false,
+            "metadata": {},
+            "network": "base",
+            "supported_tokens": [
+              {
+                "token_contract_address": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+                "token_currency": "usdc"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chain.authorize",
+      "txHash": "0xd23ac1973e248dbe81119c63174be0bacae78ff4da40dbe197a9ab29ccf50336",
+      "blockNumber": "61101473",
+      "status": "success"
+    },
+    {
+      "name": "chain.capture",
+      "txHash": "0x9cb2cb760d5ebd711760aa12cfd28a55e3678eb36bcc86f2d5a4bfdd38429268",
+      "blockNumber": "61101476",
+      "status": "success",
+      "transferToReceiver": [
+        {
+          "from": "0x287459b71CB5Fa537555E68B4968d8f29d2dddbE",
+          "to": "0x3b0b371ae3cB08F272b87319684f6518b3b313a0",
+          "value": "10000"
+        }
+      ]
+    },
+    {
+      "name": "stripe.createPaymentIntent",
+      "attempts": [
+        {
+          "label": "createPaymentIntent",
+          "stripeVersion": "2026-07-29.preview",
+          "httpStatus": 200,
+          "response": {
+            "id": "pi_3UdhgOI5sElyKBwA12avfxXX",
+            "object": "payment_intent",
+            "agent_details": null,
+            "allowed_payment_method_types": [
+              "crypto"
+            ],
+            "amount": 1,
+            "amount_capturable": 0,
+            "amount_details": {
+              "surcharge": {},
+              "tip": {}
+            },
+            "amount_received": 0,
+            "application": null,
+            "application_fee_amount": null,
+            "automatic_payment_methods": null,
+            "canceled_at": null,
+            "cancellation_reason": null,
+            "capture_method": "automatic_async",
+            "client_secret": "[REDACTED]",
+            "confirmation_method": "automatic",
+            "created": 1795142172,
+            "currency": "usd",
+            "customer": null,
+            "customer_account": null,
+            "description": null,
+            "excluded_payment_method_types": null,
+            "last_payment_error": null,
+            "latest_charge": null,
+            "livemode": false,
+            "managed_payments": {
+              "enabled": false
+            },
+            "metadata": {},
+            "next_action": null,
+            "on_behalf_of": null,
+            "payment_method": "[REDACTED]",
+            "payment_method_configuration_details": null,
+            "payment_method_options": {
+              "crypto": {
+                "mode": "transaction_verification",
+                "transaction_verification_options": {
+                  "network": "base",
+                  "transaction_hash": "0x9cb2cb760d5ebd711760aa12cfd28a55e3678eb36bcc86f2d5a4bfdd38429268"
+                }
+              }
+            },
+            "payment_method_types": [
+              "crypto"
+            ],
+            "payment_record": null,
+            "processing": null,
+            "receipt_email": null,
+            "review": null,
+            "setup_future_usage": null,
+            "shared_payment_granted_token": null,
+            "shipping": null,
+            "source": null,
+            "statement_descriptor": null,
+            "statement_descriptor_suffix": null,
+            "status": "processing",
+            "transfer_data": null,
+            "transfer_group": null
+          }
+        }
+      ]
+    }
+  ],
+  "chainId": 84532,
+  "receiver": "0x3b0b371ae3cb08f272b87319684f6518b3b313a0",
+  "captureTxHash": "0x9cb2cb760d5ebd711760aa12cfd28a55e3678eb36bcc86f2d5a4bfdd38429268",
+  "result": "stripe_accepted_capture_transfer",
+  "followUp": {
+    "note": "GET /v1/payment_intents/pi_3UdhgOI5sElyKBwA12avfxXX polled 4x at 10s intervals (read only)",
+    "status": "succeeded",
+    "amount_received": 1,
+    "latest_charge": "py_3UdhgOI5sElyKBwA1MdwLAQ5",
+    "last_payment_error": null,
+    "initialStatus": "processing"
+  },
+  "resultNote": "initial create returned status=processing; became succeeded within ~10s. Control EOA transfer not run (not needed).",
+  "sanitized": "Public copy of the live Base Sepolia + Stripe sandbox (livemode=false) probe of 2026-11-19. Stripe client secret and payment method IDs redacted; no API keys, account secrets or local paths. On-chain values are public: https://sepolia.basescan.org/tx/0x9cb2cb760d5ebd711760aa12cfd28a55e3678eb36bcc86f2d5a4bfdd38429268"
+}

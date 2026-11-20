@@ -1,0 +1,18 @@
+{
+  "name": "agentkoin-stripe-x402-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local/testnet harness: AuthCaptureEscrow v1.1 + AgentKoin arbiter (v0.2 seller_forward/deposit_address_direct, v0.3 arbiter_v03_direct zero-hop) payout to a Stripe crypto deposit address, recorded via PaymentIntent transaction_verification. Unpublished.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test test/unit.test.ts",
+    "test:anvil": "node --test test/demo.test.ts test/v03-direct.test.ts"
+  },
+  "dependencies": {
+    "viem": "^2.57.11"
+  },
+  "license": "MIT"
+}

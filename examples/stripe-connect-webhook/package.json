@@ -1,0 +1,11 @@
+{
+  "name": "agentkoin-stripe-connect-webhook",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Prototype: verifies a signed AgentKoin verdict and maps it to Stripe Connect transfers/refunds. AgentKoin never holds funds. Unpublished.",
+  "engines": { "node": ">=22.18" },
+  "scripts": { "test": "node --test test/*.test.ts" },
+  "dependencies": { "viem": "^2.57.11" },
+  "license": "MIT"
+}

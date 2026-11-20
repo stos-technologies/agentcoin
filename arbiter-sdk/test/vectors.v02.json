@@ -1,0 +1,55 @@
+{
+  "chainId": 84532,
+  "arbiter": "0x8b4B3A8c6389a17AA7f66e18F59Afb36Cc9C453A",
+  "json": {
+    "z": [
+      1,
+      "é",
+      true,
+      null
+    ],
+    "a": {
+      "c": " ",
+      "b": -0.5
+    },
+    "é": 1e+21
+  },
+  "jcs": "{\"a\":{\"b\":-0.5,\"c\":\" \"},\"z\":[1,\"é\",true,null],\"é\":1e+21}",
+  "resultDigestJson": "0x91bb8554f2c4d138e0de41dac68d54e768f2ef07bfe3fe38c7e322fb6bc02b6e",
+  "resultDigestBytes": "0x5ae62e9041ae216f5a434479e59aeced7bc8e107088c1ab0b39cb6b9db385386",
+  "terms": {
+    "evaluator": "0x000f3e27EAf5d2C1A30F4fE50FF1bcC4A78f124A",
+    "criteriaHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+    "scheduleHash": "0x3333333333333333333333333333333333333333333333333333333333333333",
+    "requiredTotal": 4,
+    "bpsTable": "0x27101d4c138809c40000",
+    "submitBy": 1795798800,
+    "evalWindow": 21600
+  },
+  "termsHash": "0xce0a2089ec6ceb3ebebc1b51075338e26ff0947ed7a2eac4c17ab9e963fb05a2",
+  "termsSalt42": "0xb7f4d6f280613ff7e040368be1a65d58e153395dee39201c567bcc8ad039f8d2",
+  "verdict": {
+    "paymentInfoHash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+    "termsHash": "0xce0a2089ec6ceb3ebebc1b51075338e26ff0947ed7a2eac4c17ab9e963fb05a2",
+    "deliverableHash": "0x4444444444444444444444444444444444444444444444444444444444444444",
+    "resultDigest": "0x91bb8554f2c4d138e0de41dac68d54e768f2ef07bfe3fe38c7e322fb6bc02b6e",
+    "passMask": 11,
+    "payoutBps": 7500,
+    "reasonHash": "0x6666666666666666666666666666666666666666666666666666666666666666"
+  },
+  "verdictDigest": "0xc68059b88490c0741ba800e28abb0f74c8ef402ee8e18c2b9d79ef64d1c8d62f",
+  "acceptance": {
+    "paymentInfoHash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+    "termsHash": "0xce0a2089ec6ceb3ebebc1b51075338e26ff0947ed7a2eac4c17ab9e963fb05a2",
+    "resultDigest": "0x91bb8554f2c4d138e0de41dac68d54e768f2ef07bfe3fe38c7e322fb6bc02b6e",
+    "decision": 2,
+    "noteHash": "0x7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "acceptanceDigest": "0x4f01046c4a01e57f5079d902c55fb373ba619822f4dbc9626ba12112e3022b15",
+  "typehashes": {
+    "terms": "0x8d7df2c9a7e593099e92624928823bac5a33a3a855c6103a0fa96551b7abfe8c",
+    "salt": "0xb4608ec125169501298305d6a6508051f2d307b371f700d58fe7c68a4b2102c0",
+    "verdict": "0x591be969cfdc1c73065a4689469d787359b36ca77ca68f02d74255ef89230175",
+    "acceptance": "0xb5e2c35eb12f1dfae64e5f706cd4e3579b5254f52dd2f98038d407969c4c3849"
+  }
+}

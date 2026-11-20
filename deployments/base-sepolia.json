@@ -32,6 +32,22 @@
     },
     "MockERC8183Kernel": {
       "address": "0x79c40413556ab795f9d64d745b7c591e4a888e64"
+    },
+    "AgentKoinAuthCaptureArbiterV03": {
+      "address": "0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5",
+      "version": "0.3",
+      "sourcifyUrl": "https://repo.sourcify.dev/84532/0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5",
+      "deployTx": "0x0c057d7c5e70f6349036c1cdf8fd12c057f632b4757d28155164319f2b10a6e0",
+      "deployBlock": 61127019,
+      "proposeSlasherTx": "0xa0cc4e67ce52e2f8cd8f150c6f88488c54636b404e1b9f3c6ff6405eef9bfb7e",
+      "slasherUnlockEta": 1795320145,
+      "slasherUnlockEtaEst": "2026-11-21 23:02:25 EST",
+      "authCaptureEscrow": "0xf96815976523E00e65Be8f34cA5e64b4f41EB19c",
+      "erc3009PaymentCollector": "0x8612dfdc421f80336cd14E8EF9cb1E765dB5ab88",
+      "evaluatorRegistry": "0x30576DE005df028D1947C56dEcc85a2a5612036a",
+      "challengeWindow": 600,
+      "arbitrator": "0x0000000000000000000000000000000000000000",
+      "maxAmountPerPayment": 1000000
     }
   }
 }
