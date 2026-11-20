@@ -18,6 +18,8 @@ Default escrow: `0xd6E00d3419C16a3bEE1B8CC030A7062bf2014b2c`. Default RPC: `http
 
 Re-runs 9 checks (job on-chain, spec hash, deliverable hash, payment flow, submit tx, verdict signer, settlement, evaluator stake, escrow bytecode via Sourcify) against a Base Sepolia RPC. It talks only to the public RPC (publicnode, then sepolia.base.org), `https://agentcoinhq.com` (optional proof hints and the signing key; `--no-server` skips them) and Sourcify. Read-only, no key. Exit 0 = no check failed.
 
+Since 0.1.2-testnet it also checks, when the proof carries them: `concordium-anchor` (the proof's hash, minus `signature`, `anchors` and `badges`, is anchored in a finalized Concordium testnet RegisterData tx; reads the public wallet-proxy and CCDScan, or `--ccd-grpc host:port`; `--no-concordium` skips) and `evaluator-badge` (the evaluator is backed by a Concordium Agent Registry badge whose Agent Card lists its address; the badge comes from the proof's `badges.concordium`, `--badge TOKEN` overrides). Both skip rather than fail when their data or a node is unavailable. `@concordium/web-sdk` is an optional dependency, used only for the gRPC path.
+
 ## Setup (from source)
     cd judge-kit && npm install
 

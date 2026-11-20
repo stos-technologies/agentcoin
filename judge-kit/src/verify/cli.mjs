@@ -5,6 +5,8 @@
 import { readFileSync } from "node:fs";
 import { createPublicClient, http } from "viem";
 import { baseSepolia } from "viem/chains";
+import { verifyConcordiumAnchor, sdkNodeReader, proxyNodeReader, DEFAULT_CCD_GRPC } from "./ccd-anchor.mjs";
+import { checkBadge } from "./ccd-badge.mjs";
 import { collect, evaluateChecks, describeEvidence, verifyProofSignature, crossCheck, addressFromProofJwk, ESCROWS } from "./job-proof.mjs";
 
 const DEFAULT_ESCROW = "0x4EaF6d09F8C22980Bb16E719779ACe73A7b1CB3D";
@@ -14,14 +16,14 @@ export function parseArgs(argv) {
   const o = { _: [], flags: {} };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === "--json" || a === "--no-sourcify" || a === "--no-server") o.flags[a.slice(2)] = true;
+    if (a === "--json" || a === "--no-sourcify" || a === "--no-server" || a === "--no-concordium") o.flags[a.slice(2)] = true;
     else if (a.startsWith("--")) o.flags[a.slice(2)] = argv[++i];
     else o._.push(a);
   }
   return o;
 }
 
-export async function verifyJob({ jobId, escrow = DEFAULT_ESCROW, rpc, server = "https://agentcoinhq.com", proofFile, window, sourcify = true, noServer = false, client = null, fetchBytes, log = () => {} }) {
+export async function verifyJob({ jobId, escrow = DEFAULT_ESCROW, rpc, server = "https://agentcoinhq.com", proofFile, window, sourcify = true, noServer = false, client = null, fetchBytes, log = () => {}, concordium = true, ccdGrpc, ccdProxy, ccdReader = null, ccdSender = null, badge = null, fetchImpl = fetch }) {
   const url = rpc ?? DEFAULT_RPCS[0];
   const w = Number(window ?? (/publicnode/.test(url) ? 50000 : 200));
   client ??= createPublicClient({ chain: baseSepolia, transport: http(url) });
@@ -57,6 +59,14 @@ export async function verifyJob({ jobId, escrow = DEFAULT_ESCROW, rpc, server = 
   results.push(...checks);
   if (proof) {
     for (const c of crossCheck(proof, checks)) results.push({ id: `proof-claims:${c.id}`, claim: `the proof's expected value for ${c.id} equals the independently derived one`, how: "compare proof.checks[].expected with the recomputed expected", expected: null, actual: null, status: c.status, ...(c.reason ? { reason: c.reason } : {}) });
+  }
+  if (concordium) {
+    const [h, pt] = (ccdGrpc ?? "").split(":");
+    results.push(await verifyConcordiumAnchor({ proof, expect: { jobId: ev.jobId, escrow: ev.escrow, chainId: ev.chainId }, reader: ccdReader, readerFactory: () => (ccdGrpc ? sdkNodeReader({ host: h || DEFAULT_CCD_GRPC.host, port: Number(pt || DEFAULT_CCD_GRPC.port) }) : proxyNodeReader({ ...(ccdProxy ? { base: ccdProxy } : {}) })), expectedSender: ccdSender }));
+    const evAddr = String(ev.job?.evaluator ?? proof?.evaluator?.address ?? "").toLowerCase();
+    const hosted = Object.entries(proof?.badges?.concordium ?? {}).find(([k]) => k.toLowerCase() === evAddr)?.[1];
+    const b = badge ?? hosted ?? proof?.evaluator?.concordiumBadge ?? null;
+    results.push(await checkBadge({ badge: b, evaluator: ev.job?.evaluator ?? proof?.evaluator?.address ?? null, fetchImpl }));
   }
   const failed = results.filter((r) => r.status === "fail").length;
   let published = null;
@@ -100,10 +110,10 @@ const fmt = (r) => `${r.status === "pass" ? "PASS" : r.status === "skip" ? "skip
 export async function main(argv = process.argv.slice(2)) {
   const a = parseArgs(argv);
   const jobId = a._[0];
-  if (!jobId || !/^\d+$/.test(jobId)) { console.error("usage: agentkoin-judge-kit verify <jobId> [--escrow 0x..] [--rpc URL] [--server URL] [--proof FILE] [--window N] [--no-sourcify] [--no-server] [--json]"); return 2; }
+  if (!jobId || !/^\d+$/.test(jobId)) { console.error("usage: agentkoin-judge-kit verify <jobId> [--escrow 0x..] [--rpc URL] [--server URL] [--proof FILE] [--window N] [--no-sourcify] [--no-server] [--no-concordium] [--ccd-grpc host:port] [--ccd-proxy URL] [--ccd-sender ADDR] [--badge TOKEN] [--json]"); return 2; }
   const escrow = a.flags.escrow ?? DEFAULT_ESCROW;
   if (!ESCROWS[escrow.toLowerCase()] && !a.flags.rpc) console.error(`note: ${escrow} is not a known AgentKoin escrow`);
-  const r = await verifyJob({ jobId, escrow, rpc: a.flags.rpc, server: a.flags.server, proofFile: a.flags.proof, window: a.flags.window, sourcify: !a.flags["no-sourcify"], noServer: !!a.flags["no-server"] });
+  const r = await verifyJob({ jobId, escrow, rpc: a.flags.rpc, server: a.flags.server, proofFile: a.flags.proof, window: a.flags.window, sourcify: !a.flags["no-sourcify"], noServer: !!a.flags["no-server"], concordium: !a.flags["no-concordium"], ccdGrpc: a.flags["ccd-grpc"], ccdProxy: a.flags["ccd-proxy"], ccdSender: a.flags["ccd-sender"], badge: a.flags.badge });
   if (a.flags.json) console.log(JSON.stringify(r, null, 2));
   else {
     console.log(`job ${r.jobId} on ${r.escrow} (${r.escrowVersion}) via ${r.rpc}`);
