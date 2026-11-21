@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "agentkoin": {
+      "command": "npx",
+      "args": ["-y", "@agentkoin/mcp@testnet"],
+      "env": { "AGENTCOIN_PRIVATE_KEY": "<Base Sepolia TEST key with >= 0.01 test USDC>", "AGENTCOIN_MAX_PAYMENT": "10000" }
+    }
+  }
+}
