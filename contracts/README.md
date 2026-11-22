@@ -8,6 +8,8 @@ The Solidity source for `AgentKoinAuthCaptureArbiterV03` and the four files it i
 | imports | `src/arbiter/IAuthCaptureEscrow.sol`, `src/interfaces/IEvaluatorRegistry.sol`, `src/interfaces/IArbitrator.sol`, `src/PayoutScheduleLib.sol`, OpenZeppelin Contracts v5.1.0 |
 | Base Sepolia (84532) | `0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5` |
 | Sourcify | exact_match: https://repo.sourcify.dev/84532/0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5 |
+| registry slasher | active since 2026-11-21 23:13:16 EST (`executeSlasher` tx `0x19e1cf59026d4b13ad060d22543d55b0a977c6b011bdc2e24cd83eb4a4eaae8c`) |
+| live proof | 100% and 50% runs, Base Sepolia + Stripe sandbox: `../examples/stripe-x402-demo/live-v03-base-sepolia.json` |
 | compiler | solc 0.8.28, optimizer 200 runs, evm cancun, no via-ir |
 | constructor | escrow `0xf96815976523E00e65Be8f34cA5e64b4f41EB19c` (AuthCaptureEscrow v1.1), registry `0x30576DE005df028D1947C56dEcc85a2a5612036a`, arbitrator `0x0`, token `0x036CbD53842c5426634e7929541eC2318f3dCF7e`, maxAmountPerPayment `1000000`, config `(3600, 600, 3600, 3600, 1000, 2500, 2000, 1000000)` |
 

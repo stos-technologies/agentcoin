@@ -23,10 +23,10 @@ Contract addresses: `deployments/base-sepolia.json` (public subset: addresses an
 
 | path | what |
 |---|---|
-| `contracts/` | `AgentKoinAuthCaptureArbiterV03` source. It is an x402 `auth-capture` operator on Base Commerce Payments `AuthCaptureEscrow` v1.1. v0.3 adds an optional `Terms.submitter`, so a keyless receiver such as a Stripe deposit address can be paid directly. Base Sepolia `0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5`, Sourcify exact_match: https://repo.sourcify.dev/84532/0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5. Registry slasher timelock until 2026-11-21 23:02:25 EST. |
+| `contracts/` | `AgentKoinAuthCaptureArbiterV03` source. It is an x402 `auth-capture` operator on Base Commerce Payments `AuthCaptureEscrow` v1.1. v0.3 adds an optional `Terms.submitter`, so a keyless receiver such as a Stripe deposit address can be paid directly. Base Sepolia `0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5`, Sourcify exact_match: https://repo.sourcify.dev/84532/0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5. Active registry slasher since 2026-11-21 23:13:16 EST. |
 | `arbiter-sdk/` | TS helpers for arbiter v0.2 and v0.3: terms, salt, PaymentInfo, EIP-712 verdict/acceptance. Includes the ERC-8021 Base Builder Code hook (default `bc_ta422vae`, opt-out `BASE_BUILDER_CODE=none`). |
 | `python/agentcoin-core/` | `agentcoin_core.arbiter` (v0.2) and `agentcoin_core.arbiter_v03`. These are the same hashes as the TS SDK, checked by shared vectors. |
-| `examples/stripe-x402-demo/` | Arbiter payout to a Stripe crypto deposit address, recorded by PaymentIntent `transaction_verification`. Includes a live Base Sepolia + Stripe sandbox proof (capture `0x9cb2cb76…9268` -> `pi_3UdhgOI5sElyKBwA12avfxXX` `succeeded`) and the local v0.3 zero-hop tests. |
+| `examples/stripe-x402-demo/` | Arbiter payout to a Stripe crypto deposit address, recorded by PaymentIntent `transaction_verification`. Includes a live Base Sepolia + Stripe sandbox proof (capture `0x9cb2cb76…9268` -> `pi_3UdhgOI5sElyKBwA12avfxXX` `succeeded`) and live v0.3 zero-hop runs on 2026-11-22 (EST). The 100% run captured 0.01 USDC: `pi_3UecZ2I5sElyKBwA0y13XlCn`. The 50% partial run captured 0.01 USDC and refunded 0.01 USDC: `pi_3UecaHI5sElyKBwA1KCvXBSy`. Both PaymentIntents `succeeded`. |
 | `examples/stripe-connect-webhook/` | Applies a signed AgentKoin verdict to Stripe Connect transfers and refunds. AgentKoin holds no funds. Tested against a local mock. |
 
 These are testnet prototypes, unaudited and not published to npm or PyPI.

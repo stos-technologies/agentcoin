@@ -6,8 +6,8 @@ Local/testnet harness. Escrow: AuthCaptureEscrow v1.1. Judge: AgentKoin arbiter 
 | name | value |
 |---|---|
 | ESCROW | `0xf96815976523E00e65Be8f34cA5e64b4f41EB19c` |
-| ARBITER (v0.2) | `0xC0A315b5C4745DecB7db9Ed019C026971500e7a0` (registry slasher timelock until 2026-11-21 19:22 EST) |
-| ARBITER (v0.3) | `0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5` (registry slasher timelock until 2026-11-21 23:02:25 EST) |
+| ARBITER (v0.2) | `0xC0A315b5C4745DecB7db9Ed019C026971500e7a0` (active registry slasher) |
+| ARBITER (v0.3) | `0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5` (active registry slasher since 2026-11-21 23:13:16 EST) |
 | USDC | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` |
 | COLLECTOR | `0x8612dfdc421f80336cd14E8EF9cb1E765dB5ab88` |
 
@@ -15,7 +15,9 @@ Local/testnet harness. Escrow: AuthCaptureEscrow v1.1. Judge: AgentKoin arbiter 
 - `lifecycle.mts` authorize, bindTerms, submit, verdictBySig, optional recordBuyerAcceptance, finalize, optional forward, Stripe call, receipt.
 - `run-demo.mts` env wrapper. `probe-stripe-verification.mts` standalone probe. `stripe.mts` Stripe client. `mock-stripe.mts` local mock (not Stripe).
 - `lifecycle-v03.mts` v0.3 zero-hop: authorize, bindTerms, submit by `Terms.submitter`, verdictBySig, settlement (finalize, rule or resolveStaleDispute), Stripe call, receipt.
+- `run-live-v03.mts` live v0.3 runner. It works on Base Sepolia only, and refuses to run unless Stripe reports `livemode: false` for the key (`GET /v1/balance`). Keys are read from files named by env vars (`PAYER_KEY_FILE EVALUATOR_KEY_FILE SELLER_KEY_FILE RELAYER_KEY_FILE STRIPE_ENV_FILE`; also `AMOUNT_ATOMIC PASS_MASK OUT`). It waits out `challengeWindow` on the real chain, then reads the PaymentIntent back.
 - `probe-result-base-sepolia.json` sanitized result of the live Base Sepolia + Stripe sandbox probe (see Proof).
+- `live-v03-base-sepolia.json` sanitized receipts of the two live v0.3 runs (see Proof).
 - Tests: `npm install`, then:
   - `npm test` runs the offline unit test (`test/unit.test.ts`). No chain, no artifacts.
   - `npm run test:anvil` runs `test/demo.test.ts` and `test/v03-direct.test.ts`. These need `forge build` output in `../../out` (the Foundry workspace that builds the registry, escrow and mocks is not in the public repo) and `anvil` in `~/.foundry/bin`.
@@ -58,8 +60,25 @@ This probe uses an EOA operator, not the arbiter.
 | config | same as v0.2: arbitrator `0x0` (challenges disabled), challengeWindow 600 s, maxAmountPerPayment 1000000 |
 | `proposeSlasher(v0.3, true)` tx | `0xa0cc4e67ce52e2f8cd8f150c6f88488c54636b404e1b9f3c6ff6405eef9bfb7e` (block 61127383) |
 | slasher unlock (`pendingSlasher.eta`) | `1795320145` = 2026-11-21 23:02:25 EST |
+| `executeSlasher(v0.3)` tx | `0x19e1cf59026d4b13ad060d22543d55b0a977c6b011bdc2e24cd83eb4a4eaae8c` (block 61994637, 2026-11-21 23:13:16 EST); `isSlasher(v0.3) = true` |
 
-Until the registry's 48 h slasher timelock is executed, `bindTerms` on v0.3 reverts. The live v0.3 zero-hop (100%) and 50% partial-capture Base Sepolia runs are scheduled for after the unlock, and are not done yet.
+**Live, 2026-11-22 (EST): v0.3 zero-hop, arbiter capture straight to a Stripe deposit address, recorded by Stripe** (`run-live-v03.mts`; `live-v03-base-sepolia.json`)
+
+The receiver is Stripe deposit address `0x3b0b371ae3cB08F272b87319684f6518b3b313a0`, which has no key. `Terms.submitter` is the seller EOA `0x745528C4E0CBdA5759175A660da06d0aaA72db7F`. The payer is `0x78e2C0164A80F3e337AE17e3bA4b8EA2C0Fa488e` and the evaluator is `0xfb0159725FB6169f676ebFd2FA0Ac2C3A184509a`, which is staked in the registry. There was no forward and no impersonation. Each settlement is one `finalize()` tx, sent after the 600 s challenge window.
+
+| step | 100% (passMask 0b1111) | 50% partial (passMask 0b0011) |
+|---|---|---|
+| authorized | 10000 atomic (0.01 USDC) | 20000 atomic (0.02 USDC) |
+| `authorize` | `0x480e89e622c68c0fa5eabf58182b65abbacf0f859959e676b19b6cfc14d232ca` | `0xd078dbcdeab781bcb26e6aec4234ff8dad225824f36222b0f00653efdc5283ac` |
+| `bindTerms` (registry `lockExposure`) | `0x514a400a215b016f0b93060319de5fbb5874df32b0b22eac22d1f35886c431ca` | `0xc2842434cca7333583f0c0f6551dc97d8fe65765107aa169112624abc0d5bba8` |
+| `submit` (by `Terms.submitter`) | `0x89fecd4740b0721231b86ad46ed625d0693cb44aa963f3c02d156c67c10a591f` | `0x08dae25000c02aaf6f0c7984ebab92dde777fbed265150f8cf3b917a91b93aa0` |
+| `verdictBySig` (v0.3 domain) | `0xefa5d96d11d557282dab8b2e12182cf1f1a06eb047b8cb7b32cb09217a68febe` | `0xc32c56a1f1283de7beff4682edfd63e02f4bdcd2bfb8ddcb6c7dd3155c34052c` |
+| `finalize` (settlement) | `0x1a54490b3f3e95f1f30ba7a8246552899afa99312ffdb95a6e00991d22f914aa` (block 62194769) | `0x1a830ff8df6657487bcb3c6c54e7a59f711e42449e116560e9c78a3c85c0601b` (block 62195161) |
+| USDC transfers in `finalize` | token store -> deposit address 10000 | token store -> deposit address 10000; token store -> payer 10000 (refund) |
+| `outcome` | settledBy verdict, payoutBps 10000 | settledBy verdict, payoutBps 5000 |
+| PaymentIntent (`transaction_verification`, `amount=1`, network `base`, that `finalize` tx) | `pi_3UecZ2I5sElyKBwA0y13XlCn`: `processing`, then `succeeded`; `amount_received: 1`; charge `py_3UecZ2I5sElyKBwA0GZDKUTs`; `livemode: false` | `pi_3UecaHI5sElyKBwA1KCvXBSy`: `processing`, then `succeeded`; `amount_received: 1`; charge `py_3UecaHI5sElyKBwA126JuWuE`; `livemode: false` |
+
+All 10 txs have status 1 and call the arbiter. The transfer amounts above were decoded from the receipts. Both PaymentIntents were read back from the Stripe test API and carry the settlement tx hash and `agentkoin_arbiter_version: 0.3` metadata. The evaluator's exposure was released after settlement.
 
 **Local anvil + mock Stripe: v0.3 zero-hop.** `test/v03-direct.test.ts` passes 6/6:
 - keyless deposit-address receiver, seller-submitted, with a single capture transfer verified by the mock
@@ -84,8 +103,13 @@ Observed in the live sandbox probe (2026-11-19):
 - `network=base` was accepted for a Base Sepolia deposit address and tx hash.
 - A transfer emitted inside `AuthCaptureEscrow.capture()` (token store to deposit address) was accepted: `succeeded`.
 
+Observed in the live v0.3 runs (2026-11-22):
+- A v0.3 `finalize()` tx whose capture transfer goes straight to the deposit address was accepted: `succeeded`.
+- A partial-capture `finalize()` tx with two USDC transfers was accepted for the deposit-address transfer: `succeeded`, `amount_received: 1`. The two transfers were 10000 to the deposit address and 10000 refunded to the payer.
+- `metadata` (`agentkoin_*` keys) was accepted on this mode and returned on read-back.
+- The read-back also returns `payment_method_options.crypto.mode` and `transaction_verification_options.{network, transaction_hash}`.
+
 Still unverified:
-1. Whether Stripe accepts a settlement tx that carries two USDC transfers (a partial capture, which pays the deposit address and refunds the payer in one tx). This will be tested live after the v0.3 unlock.
-2. PaymentIntent response fields for this mode beyond `id`/`status`; `metadata` acceptance on this mode.
-3. Restricted-key permission names for deposit addresses and this PaymentIntent mode (docs describe restricted keys generally; no per-resource list found).
+1. Restricted-key permission names for deposit addresses and this PaymentIntent mode. The docs describe restricted keys in general; no per-resource list was found.
+
 Mock error codes and response extras are invented for tests.

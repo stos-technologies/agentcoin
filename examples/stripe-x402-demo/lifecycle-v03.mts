@@ -3,7 +3,8 @@
 // Settlement (the single capture tx: escrow token store -> deposit address) is finalize(), or rule() (reached via
 // the arbitrator's giveRuling) or resolveStaleDispute() after a challenge. Stripe transaction_verification is asked
 // to record that settlement tx hash, only for an exact whole-cent amount (never floored). No impersonation, no
-// forward. ABIs come from ../../out (run `forge build`); all txs go to opts.rpcUrl. LOCAL PROTOTYPE: v0.3 is not deployed.
+// forward. ABIs come from ../../out (run `forge build`); all txs go to opts.rpcUrl. v0.3 is deployed on Base Sepolia at
+// 0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5; live runs set waitForChallengeWindow (no time travel on a real chain).
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { createPublicClient, createWalletClient, defineChain, http, keccak256, toHex, parseAbi, parseAbiItem, parseEventLogs, getAddress, type Address, type Hex } from "viem";
@@ -17,6 +18,7 @@ const ARB = JSON.parse(readFileSync(path.join(OUT, "AgentKoinAuthCaptureArbiterV
 const transferEvt = parseAbiItem("event Transfer(address indexed from, address indexed to, uint256 value)");
 const arbitratorAbi = parseAbi(["function giveRuling(uint256 disputeId, uint16 payoutBps)", "function disputeCount() view returns (uint256)", "function fee() view returns (uint256)"]);
 const erc20 = parseAbi(["function approve(address,uint256) returns (bool)"]);
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /** 1 cent = 10_000 atomic USDC. Only exact whole-cent amounts are sent to Stripe; never floored. */
 export const isWholeCents = (atomic: bigint) => atomic >= 10_000n && atomic % 10_000n === 0n;
@@ -36,6 +38,11 @@ export type LifecycleV03Opts = {
   amount: bigint; passMask: number; timeTravel?: boolean; saltNonce?: bigint; result?: unknown;
   /** Challenge after the verdict, then settle by rule() (arbitrator ruling) or resolveStaleDispute() (after rulingWindow). */
   dispute?: { challenger: "seller" | "payer"; arbitrator: Address; arbitratorOwnerKey: Hex; ruling?: number; stale?: boolean };
+  /** Live chains: before finalize(), poll until a block's timestamp is past verdictAt + challengeWindow. */
+  waitForChallengeWindow?: boolean; pollMs?: number;
+  /** Live chains: retry a failing simulateContract this many times (load-balanced RPC read-after-write lag). */
+  simulateRetries?: number;
+  onStep?: (step: string, hash: Hex) => void;
 };
 
 export async function runLifecycleV03(o: LifecycleV03Opts) {
@@ -45,10 +52,15 @@ export async function runLifecycleV03(o: LifecycleV03Opts) {
   const [payer, evaluator, seller, relayer] = [o.keys.payer, o.keys.evaluator, o.keys.seller, o.keys.relayer].map((k) => privateKeyToAccount(k));
   const txs: Record<string, Hex | null> = { authorize: null, bindTerms: null, submit: null, verdict: null, challenge: null, settlement: null };
   const send = async (who: any, functionName: string, args: unknown[], address: Address = o.arbiterV03, abi: any = ARB) => {
-    const { request } = await pc.simulateContract({ address, abi, functionName, args, account: who } as any);
+    let request: any;
+    for (let i = 0; ; i++) {
+      try { ({ request } = await pc.simulateContract({ address, abi, functionName, args, account: who } as any)); break; }
+      catch (e) { if (i >= (o.simulateRetries ?? 0)) throw e; await sleep(o.pollMs ?? 3000); }
+    }
     const hash = await createWalletClient({ account: who, chain, transport: http(o.rpcUrl) }).writeContract(request as any);
     const rc = await pc.waitForTransactionReceipt({ hash });
     if (rc.status !== "success") throw new Error(`${functionName} reverted`);
+    o.onStep?.(functionName, hash);
     return { hash, rc };
   };
 
@@ -78,7 +90,8 @@ export async function runLifecycleV03(o: LifecycleV03Opts) {
 
   const v = v03.buildVerdictV03({ paymentInfoHash: key, terms, deliverableHash, resultDigest: digest, passMask: o.passMask, reasonHash: keccak256(toHex("stripe-x402-demo/reason")) });
   const vsig = await evaluator.signTypedData(v03.verdictTypedDataV03(chainId, o.arbiterV03, v));
-  txs.verdict = (await send(relayer, "verdictBySig", [p, v, vsig])).hash;
+  const verdictSent = await send(relayer, "verdictBySig", [p, v, vsig]);
+  txs.verdict = verdictSent.hash;
 
   const cfg = (await pc.readContract({ address: o.arbiterV03, abi: ARB, functionName: "config" }) as any);
   const warp = async (sec: number) => { await pc.request({ method: "evm_increaseTime" as any, params: [sec] as any }); await pc.request({ method: "evm_mine" as any, params: [] as any }); };
@@ -100,6 +113,10 @@ export async function runLifecycleV03(o: LifecycleV03Opts) {
     }
   } else {
     if (o.timeTravel) await warp(Number(cfg.challengeWindow) + 1);
+    if (o.waitForChallengeWindow) {
+      const until = (await pc.getBlock({ blockNumber: verdictSent.rc.blockNumber })).timestamp + BigInt(cfg.challengeWindow);
+      while ((await pc.getBlock()).timestamp <= until) await sleep(o.pollMs ?? 3000);
+    }
     settled = await send(relayer, "finalize", [p]);
   }
   txs.settlement = settled.hash;

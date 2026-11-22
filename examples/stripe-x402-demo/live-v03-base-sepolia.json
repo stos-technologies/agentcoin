@@ -1,0 +1,152 @@
+{
+  "schema": "agentkoin.live-v03/0.1",
+  "note": "Live AgentKoinAuthCaptureArbiterV03 runs on Base Sepolia (84532) with a Stripe sandbox (livemode=false). Sanitized: no API keys, private keys, client secrets or local paths. Every tx and PaymentIntent below was re-read from the chain / Stripe test API after the run.",
+  "runs": {
+    "zeroHop100": {
+      "schema": "agentkoin.receipt/0.1",
+      "arbiterVersion": "0.3",
+      "chainId": 84532,
+      "escrow": "0xf96815976523E00e65Be8f34cA5e64b4f41EB19c",
+      "arbiter": "0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5",
+      "token": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+      "paymentInfoHash": "0x5a7e1feecadb8edc20378a8e2aa054c9e9052a0c5a2a16b68fa37982dc4631fd",
+      "termsHash": "0x0689c43cd64f9a7879cfec27e376be8594fa8de76aa90a796e0776936af39de2",
+      "payer": "0x78e2C0164A80F3e337AE17e3bA4b8EA2C0Fa488e",
+      "receiver": "0x3b0b371ae3cB08F272b87319684f6518b3b313a0",
+      "submitter": "0x745528C4E0CBdA5759175A660da06d0aaA72db7F",
+      "stripeDepositAddress": "0x3b0b371ae3cB08F272b87319684f6518b3b313a0",
+      "stripeDepositAddressId": "cda_1UecPHI5sElyKBwAFWdskaD4",
+      "receiverMode": "arbiter_v03_direct",
+      "amounts": {
+        "authorizedAtomic": "10000",
+        "capturedToReceiverAtomic": "10000",
+        "refundedToPayerAtomic": "0",
+        "toSubmitterAtomic": "0"
+      },
+      "txs": {
+        "authorize": "0x480e89e622c68c0fa5eabf58182b65abbacf0f859959e676b19b6cfc14d232ca",
+        "bindTerms": "0x514a400a215b016f0b93060319de5fbb5874df32b0b22eac22d1f35886c431ca",
+        "submit": "0x89fecd4740b0721231b86ad46ed625d0693cb44aa963f3c02d156c67c10a591f",
+        "verdict": "0xefa5d96d11d557282dab8b2e12182cf1f1a06eb047b8cb7b32cb09217a68febe",
+        "challenge": null,
+        "settlement": "0x1a54490b3f3e95f1f30ba7a8246552899afa99312ffdb95a6e00991d22f914aa"
+      },
+      "settlementTx": "0x1a54490b3f3e95f1f30ba7a8246552899afa99312ffdb95a6e00991d22f914aa",
+      "settlementStep": "finalize",
+      "captureTransferCount": 1,
+      "verdict": {
+        "paymentInfoHash": "0x5a7e1feecadb8edc20378a8e2aa054c9e9052a0c5a2a16b68fa37982dc4631fd",
+        "termsHash": "0x0689c43cd64f9a7879cfec27e376be8594fa8de76aa90a796e0776936af39de2",
+        "deliverableHash": "0x874c292dc3e7151f859b11e006c60c5dcd09ea65c79738de8327ea80b507f26a",
+        "resultDigest": "0xf7d43618e0bfb58dae7ea41040ca4b16e7ef6f9d110953ec9cd201d07bdab734",
+        "passMask": 15,
+        "payoutBps": 10000,
+        "reasonHash": "0x13475324fa443045b7085dab40299797ebe2dbde02eb3e2dd44bc70caa58de39",
+        "digest": "0x75237d6d60416dcb1f9fbdcc68b8111cc4fad3d143636d5a1a89fbf063feb4ca",
+        "signer": "0xfb0159725FB6169f676ebFd2FA0Ac2C3A184509a"
+      },
+      "outcome": {
+        "settledBy": "verdict",
+        "payoutBps": 10000,
+        "resultDigest": "0xf7d43618e0bfb58dae7ea41040ca4b16e7ef6f9d110953ec9cd201d07bdab734",
+        "buyerAcceptance": null,
+        "buyerAccepted": false
+      },
+      "stripe": {
+        "status": "called",
+        "httpStatus": 200,
+        "paymentIntentId": "pi_3UecZ2I5sElyKBwA0y13XlCn",
+        "verification": "processing",
+        "settlementTx": "0x1a54490b3f3e95f1f30ba7a8246552899afa99312ffdb95a6e00991d22f914aa",
+        "settlementStep": "finalize",
+        "amountCents": 1,
+        "apiVersion": "2026-07-29.preview",
+        "apiVersionStatus": "unverified",
+        "error": null
+      },
+      "stripeFollowUp": {
+        "httpStatus": 200,
+        "status": "succeeded",
+        "livemode": false,
+        "amount": 1,
+        "amount_received": 1,
+        "currency": "usd",
+        "latest_charge": "py_3UecZ2I5sElyKBwA0GZDKUTs",
+        "readAt": "2026-11-22T15:20:31.114Z"
+      }
+    },
+    "partial50": {
+      "schema": "agentkoin.receipt/0.1",
+      "arbiterVersion": "0.3",
+      "chainId": 84532,
+      "escrow": "0xf96815976523E00e65Be8f34cA5e64b4f41EB19c",
+      "arbiter": "0xeBF71A9B9084E40935BA73EB3fdEdc6CEf2f67d5",
+      "token": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+      "paymentInfoHash": "0x66f869e94c84b5c4ace4e99c2a62bac32c1864ab4ae3f0bdcd0f8ee6b781521c",
+      "termsHash": "0x581da48d722f266cbead811f17d7bafff1ad257233ee49c13bef5568dbf37ac2",
+      "payer": "0x78e2C0164A80F3e337AE17e3bA4b8EA2C0Fa488e",
+      "receiver": "0x3b0b371ae3cB08F272b87319684f6518b3b313a0",
+      "submitter": "0x745528C4E0CBdA5759175A660da06d0aaA72db7F",
+      "stripeDepositAddress": "0x3b0b371ae3cB08F272b87319684f6518b3b313a0",
+      "stripeDepositAddressId": "cda_1UecQUI5sElyKBwAn6kEBo6P",
+      "receiverMode": "arbiter_v03_direct",
+      "amounts": {
+        "authorizedAtomic": "20000",
+        "capturedToReceiverAtomic": "10000",
+        "refundedToPayerAtomic": "10000",
+        "toSubmitterAtomic": "0"
+      },
+      "txs": {
+        "authorize": "0xd078dbcdeab781bcb26e6aec4234ff8dad225824f36222b0f00653efdc5283ac",
+        "bindTerms": "0xc2842434cca7333583f0c0f6551dc97d8fe65765107aa169112624abc0d5bba8",
+        "submit": "0x08dae25000c02aaf6f0c7984ebab92dde777fbed265150f8cf3b917a91b93aa0",
+        "verdict": "0xc32c56a1f1283de7beff4682edfd63e02f4bdcd2bfb8ddcb6c7dd3155c34052c",
+        "challenge": null,
+        "settlement": "0x1a830ff8df6657487bcb3c6c54e7a59f711e42449e116560e9c78a3c85c0601b"
+      },
+      "settlementTx": "0x1a830ff8df6657487bcb3c6c54e7a59f711e42449e116560e9c78a3c85c0601b",
+      "settlementStep": "finalize",
+      "captureTransferCount": 1,
+      "verdict": {
+        "paymentInfoHash": "0x66f869e94c84b5c4ace4e99c2a62bac32c1864ab4ae3f0bdcd0f8ee6b781521c",
+        "termsHash": "0x581da48d722f266cbead811f17d7bafff1ad257233ee49c13bef5568dbf37ac2",
+        "deliverableHash": "0x874c292dc3e7151f859b11e006c60c5dcd09ea65c79738de8327ea80b507f26a",
+        "resultDigest": "0xf7d43618e0bfb58dae7ea41040ca4b16e7ef6f9d110953ec9cd201d07bdab734",
+        "passMask": 3,
+        "payoutBps": 5000,
+        "reasonHash": "0x13475324fa443045b7085dab40299797ebe2dbde02eb3e2dd44bc70caa58de39",
+        "digest": "0x25a65413a45d3357d67136927a992856275824c7dc017726f26da73d66a0321a",
+        "signer": "0xfb0159725FB6169f676ebFd2FA0Ac2C3A184509a"
+      },
+      "outcome": {
+        "settledBy": "verdict",
+        "payoutBps": 5000,
+        "resultDigest": "0xf7d43618e0bfb58dae7ea41040ca4b16e7ef6f9d110953ec9cd201d07bdab734",
+        "buyerAcceptance": null,
+        "buyerAccepted": false
+      },
+      "stripe": {
+        "status": "called",
+        "httpStatus": 200,
+        "paymentIntentId": "pi_3UecaHI5sElyKBwA1KCvXBSy",
+        "verification": "processing",
+        "settlementTx": "0x1a830ff8df6657487bcb3c6c54e7a59f711e42449e116560e9c78a3c85c0601b",
+        "settlementStep": "finalize",
+        "amountCents": 1,
+        "apiVersion": "2026-07-29.preview",
+        "apiVersionStatus": "unverified",
+        "error": null
+      },
+      "stripeFollowUp": {
+        "httpStatus": 200,
+        "status": "succeeded",
+        "livemode": false,
+        "amount": 1,
+        "amount_received": 1,
+        "currency": "usd",
+        "latest_charge": "py_3UecaHI5sElyKBwA126JuWuE",
+        "readAt": "2026-11-22T15:21:48.128Z"
+      }
+    }
+  }
+}
