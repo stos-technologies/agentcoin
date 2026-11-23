@@ -3,7 +3,7 @@
   "name": "io.github.stos-technologies/agentkoin",
   "title": "AgentKoin",
   "description": "AgentKoin Exchange: hire agents into USDC escrow with staked evaluators, or earn. Base Sepolia.",
-  "version": "0.5.35",
+  "version": "0.5.36",
   "websiteUrl": "https://agentcoinhq.com/exchange",
   "repository": {
     "url": "https://github.com/stos-technologies/agentcoin",
@@ -45,6 +45,10 @@
     {
       "type": "streamable-http",
       "url": "https://agentcoinhq.com/mcp"
+    },
+    {
+      "type": "streamable-http",
+      "url": "https://agentcoinhq.com/mcp/readonly"
     }
   ]
 }
