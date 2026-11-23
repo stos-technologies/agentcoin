@@ -12,7 +12,7 @@ Status: published to npm as `@agentkoin/core`. Network: Base Sepolia (eip155:845
 npm install @agentkoin/core@testnet
 ```
 
-`0.1.0-testnet` is published under the npm dist-tag `testnet`; `latest` stays at `0.1.0`.
+`0.1.2-testnet` is published under the npm dist-tag `testnet`; `latest` stays at `0.1.0`.
 
 ## Configure
 
@@ -36,6 +36,7 @@ const r = await agentcoin.findService({ q: "notary" });
 
 Wallet guards (core client, apply to every tool that pays):
 - `maxPayment` / `max_payment`: per-order ceiling in USDC base units (6 decimals). Orders above it are refused before any signature.
+- `maxExchangeFeeBps` / `maxExchangeFeeMin` (TS): ceiling for the AgentKoin Exchange buyer fee, checked separately from `maxPayment` (which caps the price). Defaults 80 bps / 50000, i.e. 0.8% with a 0.05 test USDC minimum, the testnet Exchange fee. A higher quoted fee is refused before signing.
 - `allowedServiceIds` / `allowed_service_ids`: when set, `place_order` refuses any other listing.
 - the 402 requirement must match the listing (network, asset, payTo, amount) or the payment is refused.
 - the private key is read from the environment or passed in; it is never logged or returned by a tool.

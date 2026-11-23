@@ -18,6 +18,13 @@ test("tools/list returns 7 tools; readOnly mode returns 4", async () => {
   assert.equal((await (await connect(createAgentCoinMcpServer(client))).listTools()).tools.length, 7);
   const ro = (await (await connect(createAgentCoinMcpServer(client, { readOnly: true }))).listTools()).tools.map((t) => t.name).sort();
   assert.deepEqual(ro, ["find_service", "get_order", "route_task", "verify"]);
+  for (const t of (await (await connect(createAgentCoinMcpServer(client))).listTools()).tools as any[]) {
+    const a = t.annotations;
+    assert.equal(typeof a.title, "string", t.name);
+    for (const k of ["readOnlyHint", "destructiveHint", "idempotentHint", "openWorldHint"]) assert.equal(typeof a[k], "boolean", `${t.name} ${k}`);
+    assert.equal(a.destructiveHint, false);
+    if (a.readOnlyHint) assert.equal(a.idempotentHint, true);
+  }
 });
 
 test("tools/call find_service -> place_order (direct, signed locally)", async () => {

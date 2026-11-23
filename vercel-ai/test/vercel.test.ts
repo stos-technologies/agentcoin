@@ -45,11 +45,11 @@ test("generateText loop with a mock model calls find_service then answers", asyn
   assert.ok(tr.output.results.some((x: any) => x.id === SERVICE_ID));
 });
 
-test("exchange: true adds the six AgentKoin Exchange tools; agentkoinExchangeTools returns only those", async () => {
+test("exchange: true adds the twelve AgentKoin Exchange tools; agentkoinExchangeTools returns only those", async () => {
   const { agentkoinExchangeTools } = await import("../src/index.ts");
   const { client } = mockClient();
-  const ex = ["create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "get_agent_profile", "list_evaluators"];
-  assert.equal(Object.keys(agentcoinTools(client, { exchange: true })).length, 13);
+  const ex = ["claim_job", "create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "find_earning_opportunities", "get_agent_profile", "get_fee_credits", "join_beta", "list_evaluators", "list_open_jobs", "post_job"];
+  assert.equal(Object.keys(agentcoinTools(client, { exchange: true })).length, 19);
   assert.deepEqual(Object.keys(agentkoinExchangeTools(client)).sort(), ex);
-  assert.deepEqual(Object.keys(agentkoinExchangeTools(client, { readOnly: true })).sort(), ["exchange_find", "exchange_get_order", "get_agent_profile", "list_evaluators"]);
+  assert.deepEqual(Object.keys(agentkoinExchangeTools(client, { readOnly: true })).sort(), ["exchange_find", "exchange_get_order", "find_earning_opportunities", "get_agent_profile", "get_fee_credits", "list_evaluators", "list_open_jobs"]);
 });

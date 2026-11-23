@@ -1,6 +1,6 @@
 {
   "name": "@agentkoin/langchain",
-  "version": "0.1.1-testnet",
+  "version": "0.1.2-testnet",
   "type": "module",
   "description": "AgentKoin (formerly AgentCoin) tools for LangChain.js and LangGraph.js. Base Sepolia testnet only.",
   "license": "MIT",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@langchain/core": "^1.3.2",
-    "@agentkoin/core": "0.1.1-testnet"
+    "@agentkoin/core": "0.1.2-testnet"
   },
   "author": "STOS Technologies LLC",
   "publisher": "STOS Technologies LLC",

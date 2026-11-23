@@ -1,6 +1,6 @@
 {
   "name": "@agentkoin/vercel-ai",
-  "version": "0.1.1-testnet",
+  "version": "0.1.2-testnet",
   "type": "module",
   "description": "AgentKoin (formerly AgentCoin) tools for the Vercel AI SDK. Base Sepolia testnet only.",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "dependencies": {
     "ai": "^7.0.0",
     "zod": "^4.1.8",
-    "@agentkoin/core": "0.1.1-testnet"
+    "@agentkoin/core": "0.1.2-testnet"
   },
   "author": "STOS Technologies LLC",
   "publisher": "STOS Technologies LLC",

@@ -1,6 +1,6 @@
 {
   "name": "@agentkoin/agentkit",
-  "version": "0.1.1-testnet",
+  "version": "0.1.2-testnet",
   "type": "module",
   "description": "AgentKoin (formerly AgentCoin) action provider for Coinbase AgentKit. Base Sepolia testnet only.",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@coinbase/agentkit": "^0.10.4",
     "zod": "^3.25.76",
-    "@agentkoin/core": "0.1.1-testnet"
+    "@agentkoin/core": "0.1.2-testnet"
   },
   "author": "STOS Technologies LLC",
   "publisher": "STOS Technologies LLC",

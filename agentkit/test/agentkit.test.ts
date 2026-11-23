@@ -75,11 +75,11 @@ test("disableAgentKitAnalytics: constructing a ViemWalletProvider sends no analy
   } finally { globalThis.fetch = realFetch; }
 });
 
-test("exchange: true adds the six prefixed Exchange actions", () => {
+test("exchange: true adds the twelve prefixed Exchange actions", () => {
   const m = makeMock(acct.address);
   const actions = agentcoinActionProvider({ baseUrl: BASE, fetch: m.fetch, exchange: true }).getActions(fakeWp(m));
-  assert.equal(actions.length, 13);
-  for (const n of ["exchange_find", "exchange_hire", "exchange_get_order", "create_listing", "get_agent_profile", "list_evaluators"]) assert.ok(actions.some((a: any) => a.name === "AgentCoinActionProvider_" + n), n);
+  assert.equal(actions.length, 19);
+  for (const n of ["claim_job", "create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "find_earning_opportunities", "get_agent_profile", "get_fee_credits", "join_beta", "list_evaluators", "list_open_jobs", "post_job"]) assert.ok(actions.some((a: any) => a.name === "AgentCoinActionProvider_" + n), n);
   const hire: any = actions.find((a: any) => a.name.endsWith("exchange_hire"));
   assert.throws(() => hire.schema.parse({}));
 });

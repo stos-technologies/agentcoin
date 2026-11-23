@@ -24,6 +24,9 @@ export interface AgentCoinOptions {
   rpcUrl?: string;
   /** Per-order payment ceiling in USDC base units (6 decimals). Default 50000 (0.05 test USDC). */
   maxPayment?: bigint | string | number;
+  /** Exchange buyer fee ceiling the client accepts: fee <= max(ceil(price * maxExchangeFeeBps / 10000), maxExchangeFeeMin). Defaults 80 bps / 50000 (0.8%, min 0.05 USDC). The fee is checked separately from maxPayment (which caps the price). */
+  maxExchangeFeeBps?: bigint | string | number;
+  maxExchangeFeeMin?: bigint | string | number;
   /** If set, orders are only placed for these service ids. */
   allowedServiceIds?: string[];
   /** Marks orders as AgentCoin-originated (excluded from seller scores). Used by AgentCoin's own test runs. */
@@ -77,6 +80,8 @@ export class AgentCoin {
   readonly caip2: string;
   readonly account: LocalAccount | null;
   readonly maxPayment: bigint;
+  readonly maxExchangeFeeBps: bigint;
+  readonly maxExchangeFeeMin: bigint;
   readonly allowedServiceIds: Set<string> | null;
   readonly origin?: "agentcoin";
   readonly usdc: Hex;
@@ -96,6 +101,8 @@ export class AgentCoin {
     this.baseUrl = (o.baseUrl ?? agentcoinUrl()).replace(/\/+$/, "");
     this.account = typeof o.account === "string" ? privateKeyToAccount(o.account) : (o.account ?? null);
     this.maxPayment = big(o.maxPayment ?? DEFAULT_MAX_PAYMENT);
+    this.maxExchangeFeeBps = big(o.maxExchangeFeeBps ?? 80n);
+    this.maxExchangeFeeMin = big(o.maxExchangeFeeMin ?? 50_000n);
     this.allowedServiceIds = o.allowedServiceIds ? new Set(o.allowedServiceIds) : null;
     this.origin = o.origin;
     this.usdc = getAddress(o.usdc ?? BASE_SEPOLIA.usdc);

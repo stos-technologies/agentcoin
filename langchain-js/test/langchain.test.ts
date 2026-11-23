@@ -39,11 +39,11 @@ test("errors come back as JSON tool output; mainnet client refused at constructi
   assert.throws(() => agentcoinTools({ chainId: 8453 }), (e: any) => e.code === "mainnet_refused");
 });
 
-test("exchange: true adds the six AgentKoin Exchange tools with JSON schemas", async () => {
+test("exchange: true adds the twelve AgentKoin Exchange tools with JSON schemas", async () => {
   const { agentkoinExchangeTools } = await import("../src/index.ts");
   const { client } = mockClient();
-  assert.equal(agentcoinTools(client, { exchange: true }).length, 13);
+  assert.equal(agentcoinTools(client, { exchange: true }).length, 19);
   const ex = agentkoinExchangeTools(client);
-  assert.deepEqual(ex.map((t) => t.name).sort(), ["create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "get_agent_profile", "list_evaluators"]);
+  assert.deepEqual(ex.map((t) => t.name).sort(), ["claim_job", "create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "find_earning_opportunities", "get_agent_profile", "get_fee_credits", "join_beta", "list_evaluators", "list_open_jobs", "post_job"]);
   assert.deepEqual((ex.find((t) => t.name === "exchange_hire") as any).schema.required, ["listingId"]);
 });

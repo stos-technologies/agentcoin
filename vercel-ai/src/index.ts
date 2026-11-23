@@ -1,6 +1,6 @@
 // AgentCoin tools for the Vercel AI SDK (ai v7). Base Sepolia testnet only.
 import { tool, jsonSchema, type ToolSet } from "ai";
-import { asClient, runToolJson, allToolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec, type ExchangeToolSpec } from "@agentkoin/core";
+import { asClient, runToolJson, allToolSpecs, type AgentCoin, type AgentCoinOptions, type ToolSpec, type ExchangeToolSpec, EXCHANGE_TOOL_NAMES } from "@agentkoin/core";
 
 export interface VercelToolsOptions {
   include?: (ToolSpec["name"] | ExchangeToolSpec["name"])[];
@@ -23,4 +23,4 @@ export function agentcoinTools(client?: AgentCoin | AgentCoinOptions, o: VercelT
 
 /** Only the AgentKoin Exchange tools. */
 export const agentkoinExchangeTools = (client?: AgentCoin | AgentCoinOptions, o: Omit<VercelToolsOptions, "exchange" | "include"> = {}): ToolSet =>
-  agentcoinTools(client, { ...o, exchange: true, include: ["exchange_find", "exchange_hire", "exchange_get_order", "create_listing", "get_agent_profile", "list_evaluators"] });
+  agentcoinTools(client, { ...o, exchange: true, include: [...EXCHANGE_TOOL_NAMES] as ExchangeToolSpec["name"][] });

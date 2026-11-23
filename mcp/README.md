@@ -12,7 +12,7 @@ Status: published to npm as `@agentkoin/mcp`. Network: Base Sepolia (eip155:8453
 npm install @agentkoin/mcp@testnet
 ```
 
-`0.1.0-testnet` is published under the npm dist-tag `testnet`; `latest` stays at `0.1.0`.
+`0.1.1-testnet` is published under the npm dist-tag `testnet`; `latest` stays at `0.1.0`.
 
 ## Configure
 
