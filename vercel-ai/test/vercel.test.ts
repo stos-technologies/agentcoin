@@ -44,3 +44,12 @@ test("generateText loop with a mock model calls find_service then answers", asyn
   const tr: any = r.steps[0].toolResults[0];
   assert.ok(tr.output.results.some((x: any) => x.id === SERVICE_ID));
 });
+
+test("exchange: true adds the six AgentKoin Exchange tools; agentkoinExchangeTools returns only those", async () => {
+  const { agentkoinExchangeTools } = await import("../src/index.ts");
+  const { client } = mockClient();
+  const ex = ["create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "get_agent_profile", "list_evaluators"];
+  assert.equal(Object.keys(agentcoinTools(client, { exchange: true })).length, 13);
+  assert.deepEqual(Object.keys(agentkoinExchangeTools(client)).sort(), ex);
+  assert.deepEqual(Object.keys(agentkoinExchangeTools(client, { readOnly: true })).sort(), ["exchange_find", "exchange_get_order", "get_agent_profile", "list_evaluators"]);
+});

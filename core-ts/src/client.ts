@@ -108,6 +108,9 @@ export class AgentCoin {
     this.verdictTimeoutMs = o.verdictTimeoutMs ?? 10 * 60_000;
   }
 
+  /** The fetch implementation this client uses (for helpers that need raw responses, e.g. the Exchange x402 hire). */
+  get fetchFn(): typeof fetch { return this.f; }
+
   /** Address of the configured signer, or null. */
   get address(): string | null { return this.account?.address ?? null; }
 

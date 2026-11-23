@@ -74,3 +74,12 @@ test("disableAgentKitAnalytics: constructing a ViemWalletProvider sends no analy
     assert.deepEqual(urls.filter((u) => u.includes("coinbase.com")), []);
   } finally { globalThis.fetch = realFetch; }
 });
+
+test("exchange: true adds the six prefixed Exchange actions", () => {
+  const m = makeMock(acct.address);
+  const actions = agentcoinActionProvider({ baseUrl: BASE, fetch: m.fetch, exchange: true }).getActions(fakeWp(m));
+  assert.equal(actions.length, 13);
+  for (const n of ["exchange_find", "exchange_hire", "exchange_get_order", "create_listing", "get_agent_profile", "list_evaluators"]) assert.ok(actions.some((a: any) => a.name === "AgentCoinActionProvider_" + n), n);
+  const hire: any = actions.find((a: any) => a.name.endsWith("exchange_hire"));
+  assert.throws(() => hire.schema.parse({}));
+});

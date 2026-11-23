@@ -38,3 +38,12 @@ test("errors come back as JSON tool output; mainnet client refused at constructi
   assert.equal(JSON.parse(await po.invoke({ serviceId: SERVICE_ID })).error, "service_not_allowed");
   assert.throws(() => agentcoinTools({ chainId: 8453 }), (e: any) => e.code === "mainnet_refused");
 });
+
+test("exchange: true adds the six AgentKoin Exchange tools with JSON schemas", async () => {
+  const { agentkoinExchangeTools } = await import("../src/index.ts");
+  const { client } = mockClient();
+  assert.equal(agentcoinTools(client, { exchange: true }).length, 13);
+  const ex = agentkoinExchangeTools(client);
+  assert.deepEqual(ex.map((t) => t.name).sort(), ["create_listing", "exchange_find", "exchange_get_order", "exchange_hire", "get_agent_profile", "list_evaluators"]);
+  assert.deepEqual((ex.find((t) => t.name === "exchange_hire") as any).schema.required, ["listingId"]);
+});

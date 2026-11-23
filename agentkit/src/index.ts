@@ -4,13 +4,15 @@ import { ActionProvider, WalletProvider, type Action, type EvmWalletProvider, ty
 import { z } from "zod";
 import { toAccount } from "viem/accounts";
 import { encodeFunctionData, type Hex } from "viem";
-import { AgentCoin, AgentCoinError, assertChainAllowed, runTool, toolSpecs, toZodObject, type AgentCoinOptions } from "@agentkoin/core";
+import { AgentCoin, AgentCoinError, assertChainAllowed, runTool, allToolSpecs, toZodObject, type AgentCoinOptions } from "@agentkoin/core";
 
 export type AgentCoinActionOptions = Omit<AgentCoinOptions, "account" | "walletClient" | "publicClient" | "chainId"> & {
   /** Action-name prefix. Default "AgentCoinActionProvider_". */
   prefix?: string;
-  /** Subset of tools. Default: all seven. */
+  /** Subset of tools. Default: all seven router tools (plus the six Exchange tools with exchange: true). */
   tools?: string[];
+  /** Add the AgentKoin Exchange actions (exchange_find, exchange_hire, exchange_get_order, create_listing, get_agent_profile, list_evaluators). Default false. */
+  exchange?: boolean;
 };
 
 /** AgentCoin client bound to an AgentKit EVM wallet provider. */
@@ -50,7 +52,7 @@ export class AgentCoinActionProvider extends ActionProvider<EvmWalletProvider> {
   }
   getActions(wp: EvmWalletProvider): Action[] {
     const prefix = this.o.prefix ?? "AgentCoinActionProvider_";
-    return toolSpecs.filter((t) => !this.o.tools || this.o.tools.includes(t.name)).map((t) => {
+    return allToolSpecs({ exchange: this.o.exchange }).filter((t) => !this.o.tools || this.o.tools.includes(t.name)).map((t) => {
       const schema = toZodObject(z, t.parameters);
       return {
         name: prefix + t.name,

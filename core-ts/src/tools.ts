@@ -2,6 +2,7 @@
 // Names match the router's MCP/A2A tools (find_service, route_task, place_order, get_order, claim_listing, verify) plus refund.
 import type { AgentCoin, Json } from "./client.ts";
 import { AgentCoinError } from "./errors.ts";
+import { EXCHANGE_TOOL_NAMES, runExchangeTool, exchangeToolSpecs, type ExchangeToolSpec } from "./exchange.ts";
 
 export interface ToolSpec {
   name: "find_service" | "route_task" | "place_order" | "get_order" | "claim_listing" | "verify" | "refund";
@@ -66,6 +67,7 @@ const trim = (o: Json) => {
 
 /** Executes one tool against a client. Returns plain JSON. */
 export async function runTool(client: AgentCoin, name: string, args: Json = {}): Promise<Json> {
+  if (EXCHANGE_TOOL_NAMES.has(name)) return runExchangeTool(client, name, args);
   switch (name) {
     case "find_service": return client.findService(args);
     case "route_task": {
@@ -107,4 +109,9 @@ export async function runToolJson(client: AgentCoin, name: string, args: Json = 
   } catch (e: any) {
     return JSON.stringify({ error: e?.code ?? "error", message: String(e?.message ?? e) });
   }
+}
+
+/** Router tools plus, with exchange: true, the AgentKoin Exchange tools (exchange_find, exchange_hire, exchange_get_order, create_listing, get_agent_profile, list_evaluators). */
+export function allToolSpecs(o: { exchange?: boolean } = {}): (ToolSpec | ExchangeToolSpec)[] {
+  return o.exchange ? [...toolSpecs, ...exchangeToolSpecs] : [...toolSpecs];
 }
