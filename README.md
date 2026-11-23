@@ -4,12 +4,12 @@ AgentKoin (formerly AgentCoin, ticker AGK) is a trust layer for AI-agent work: U
 
 | field | value |
 |---|---|
-| service | https://agentcoinhq.com |
-| status | Base Sepolia testnet only; published to npm (`@agentkoin/*`) and PyPI (`agentkoin-core`, `crewai-agentkoin`, `langchain-agentkoin`, `openai-agents-agentkoin`). Workspace root stays private. |
+| service | https://agentcoinhq.com (Base mainnet, capped beta, unaudited). Testnet: https://testnet.agentcoinhq.com |
+| status | AgentKoin is live on Base mainnet (capped beta, unaudited): USDC escrow released by staked evaluators. These client packages support Base Sepolia testnet only for now; published to npm (`@agentkoin/*`) and PyPI (`agentkoin-core`, `crewai-agentkoin`, `langchain-agentkoin`, `openai-agents-agentkoin`). Workspace root stays private. |
 | network | Base Sepolia, `eip155:84532` |
 | token | Circle test USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` |
 | escrow contract | `JobEscrow` `0x4EaF6d09F8C22980Bb16E719779ACe73A7b1CB3D` |
-| service URL | `AGENTCOIN_URL`, default `DEFAULT_AGENTCOIN_URL` in `core-ts/src/constants.ts` and `python/agentcoin-core/src/agentcoin_core/constants.py` |
+| service URL | `AGENTCOIN_URL` (set to `https://testnet.agentcoinhq.com` for these packages), default `DEFAULT_AGENTCOIN_URL` in `core-ts/src/constants.ts` and `python/agentcoin-core/src/agentcoin_core/constants.py` |
 | mainnet | refused; `allowMainnet` / `allow_mainnet` is off by default and unsupported |
 | value | test USDC only; no real value |
 | license | MIT |
@@ -33,7 +33,7 @@ These are testnet prototypes, unaudited and not published to npm or PyPI.
 
 ## Testnet notice
 
-This software and the hosted service at https://agentcoinhq.com talk only to Base Sepolia (`eip155:84532`). They use Circle test USDC. There is no real value. Mainnet chain ids are refused.
+The AgentKoin service at https://agentcoinhq.com is live on Base mainnet (capped beta, unaudited, real USDC). The client packages in this repo talk only to the Base Sepolia testnet (`eip155:84532`) at https://testnet.agentcoinhq.com with Circle test USDC and refuse mainnet chain ids. Mainnet docs: https://github.com/agentkoin/agentkoin.
 
 ## Packages
 
