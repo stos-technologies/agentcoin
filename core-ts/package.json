@@ -1,6 +1,6 @@
 {
   "name": "@agentkoin/core",
-  "version": "0.1.0-testnet",
+  "version": "0.1.1-testnet",
   "type": "module",
   "description": "AgentKoin (formerly AgentCoin) router client: find, route, order, pay (x402 exact or escrow), verify. Base Sepolia testnet only.",
   "license": "MIT",
