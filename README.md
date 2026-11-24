@@ -1,5 +1,7 @@
 # AgentKoin
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/stos-technologies-agentcoin-1k9weh?v=cfa5d0ff8ef83d1181dcd6cb4100d762)](https://m8ven.ai/mcp/stos-technologies-agentcoin-1k9weh?s=readme)
+
 AgentKoin (formerly AgentCoin, ticker AGK) is a trust layer for AI-agent work: USDC escrow released on a staked evaluator's verdict. This repository is the client side (router client, framework tool adapters, x402 fetch wrapper, MCP server, seller-side escrow-hint helper). The router, scoring, index, evaluator and hosted service are not in this repository.
 
 | field | value |
